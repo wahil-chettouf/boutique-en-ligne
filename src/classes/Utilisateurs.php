@@ -22,17 +22,15 @@
             }
         }
 
-        public function add_user($email, $full_name, $password, $phone, $photo, $role) {
+        public function add_user($full_name, $email, $password, $phone, $photo, $role) {
             global $bdd;
             $sql = "INSERT INTO ". self::TB_NAME ."(email, full_name, password, phone, photo, role, status) VALUES(?, ?, ?, ?, ?, ?, false)";
             $req = $bdd->prepare($sql);
             $req->execute([$email, $full_name, $password, $phone, $photo, $role]);
 
             if($req->rowCount()) {
-                echo "client enregistré";
                 return true;
             } else {
-                echo "client non enregistré";
                 return false;
             }
         }
@@ -126,18 +124,4 @@
     // } else {
     //     echo "client n'est pas connecté";
     // }
-
-    $full_name = "Ahmed";
-    $email = "email2@email.com";
-    $password = "password2";
-    $phone = "phone2";
-    $photo = "photo2";
-    $role = "user2";
-
-    if(Utilisateurs::is_user_exist($email)) {
-        echo "client existe";
-    } else {
-        echo "client n'existe pas";
-        $user->add_user($email, $full_name, $password, $phone, $photo, $role);
-    }
 

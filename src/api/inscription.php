@@ -1,12 +1,13 @@
 <?php
     require_once("../classes/Utilisateurs.php");
     require_once("../classes/Authentication.php");
+    header("Content-Type: application/json; charset=UTF-8");
 
-    $full_name_err = $email_err = $password_err = $confirm_pass_err = $phone_err = $photo_err = $role_err = "";
-    $full_name = $email = $password = $confirm_pass = $phone = $photo = $role = "";
+    $full_name_err = $email_err = $password_err = $confirm_pass_err = $phone_err = $photo_err = "";
+    $full_name = $email = $password = $confirm_pass = $phone = $photo = "";
 
     // Vérifier si on recois une requete POST
-    if($_SERVER["REQUEST_METHOD"] == "post") {
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérifiaction du nom complet
         if(isset($_POST["full_name"]) && !empty(trim($_POST["full_name"]))) {
             $full_name = Authentication::process_input($_POST["full_name"]);
@@ -16,11 +17,12 @@
 
         // Vérification de l'email
         if(isset($_POST["email"]) && !empty(trim($_POST["email"]))) {
-            if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email = Authentication::process_input($_POST["email"]);
+            if(filter_var(Authentication::process_input($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
                 // Vérification si l'utilisateur existe déjà
-                if(Utilisateurs::is_user_exist($email)) {
+                if(Utilisateurs::is_user_exist(Authentication::process_input($_POST["email"]))) {
                     $email_err = "Cet utilisateur existe déjà";
+                } else {
+                    $email = Authentication::process_input($_POST["email"]);
                 }
             } else {
                 $email_err = "Veuillez entrer une adresse email valide";
@@ -64,27 +66,32 @@
         // Vérification de la photo
         if(isset($_FILES["photo"]) && !empty($_FILES["photo"]["name"])) {
             $photo = time()."_".$_FILES["photo"]["size"]."_".$_FILES["photo"]["name"];
-            $photo_err = Authentication::process_input($photo);
         } else {
             $photo_err = "Veuillez choisir une photo";
         }
 
-        // Vérification du rôle
-        if(isset($_POST["role"]) && !empty(trim($_POST["role"]))) {
-            $role = Authentication::process_input($_POST["role"]);
-        } else {
-            $role_err = "Veuillez choisir un rôle";
-        }
-
         // Vérification des erreurs de saisie
-        if(empty($full_name_err) && empty($email_err) && empty($password_err) && empty($confirm_pass_err) && empty($phone_err) && empty($photo_err) && empty($role_err)) {
+        if(empty($full_name_err) && empty($email_err) && empty($password_err) && empty($confirm_pass_err) && empty($phone_err) && empty($photo_err)) {
             // Vérification si l'utilisateur a été ajouté
-            if(Utilisateurs::add_user($full_name, $email, $password, $phone, $photo, $role)) {
+            if($user->add_user($full_name, $email, $password, $phone, $photo, "user")) {
                 // Déplacer la photo dans le dossier images
-                move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/".$photo);
-                header("location: ../index.php");
+                echo json_encode(array("success" => "L'utilisateur a été ajouté avec succès"));
+                
+                //move_uploaded_file($_FILES["photo"]["tmp_name"], "../images/".$photo);
             } else {
-                echo "Une erreur est survenue";
+                echo json_encode(array("error" => "L'utilisateur n'a pas été ajouté"));
             }
+        } else {
+            // Afficher les erreurs en utilisant fetch en javascript
+            $tbl_err = array(
+                "full_name_err" => $full_name_err,
+                "email_err" => $email_err,
+                "password_err" => $password_err,
+                "confirm_pass_err" => $confirm_pass_err,
+                "phone_err" => $phone_err,
+                "photo_err" => $photo_err,
+            );
+            
+            echo json_encode($tbl_err);
         }
     }

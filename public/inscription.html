@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link href="../dist/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="">
+            <form id="registerForm" method="post" enctype="multipart/form-data">
+                <span class="text-red-600" id="error"></span>
+                <input type="text" name="full_name" placeholder="Nom complet" value="">
+                <input type="text" name="email" placeholder="Email" value="">
+                <input type="password" name="password" placeholder="Mot de passe" value="">
+                <input type="password" name="confirm_pass" placeholder="Confirmer le mot de passe" value="">
+                <input type="text" name="phone" placeholder="Numéro de téléphone" value="">
+                <input type="file" name="photo" placeholder="Photo" value="">
+                <input type="submit" name="submit" value="S'inscrire">
+            </form>
+    </div>
+    
+    <script src="../dist/js/inscription.js"></script>
+</body>
+</html>
