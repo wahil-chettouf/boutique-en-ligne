@@ -20,12 +20,16 @@ registerForm.addEventListener('submit', (e) => {
 });
 
 const process_data = (data) => {
-    console.log(typeof data);
+    // Reset errors
+    const errors = document.querySelectorAll('.text-red-600');
+    errors.forEach(error => error.innerHTML = "");
+
     if("success" in data) {
         window.location.href = "connexion.html";
     } else {
-        const error = document.querySelector('#error');
         for(const [key, value] of Object.entries(data)) {
+            if(value == "") continue;
+            const error = document.querySelector(`#${key}`);
             error.innerHTML += value + "<br>";
         }
     }

@@ -8,17 +8,30 @@
     <link href="../dist/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="">
-            <form id="registerForm" method="post" enctype="multipart/form-data">
-                <span class="text-red-600" id="error"></span>
-                <input type="text" name="full_name" placeholder="Nom complet" value="">
-                <input type="text" name="email" placeholder="Email" value="">
-                <input type="password" name="password" placeholder="Mot de passe" value="">
-                <input type="password" name="confirm_pass" placeholder="Confirmer le mot de passe" value="">
-                <input type="text" name="phone" placeholder="Numéro de téléphone" value="">
+    <div class="container-full m-auto flex justify-center items-center px-3 bg-slate-100 w-full h-screen">
+        <div class="w-full sm:w-96">
+            <form id="registerForm" method="post" enctype="multipart/form-data" class="flex flex-col w-full space-y-1">
+                <input type="text" name="full_name" class="p-2 border-none outline-none" placeholder="Nom complet" value="">
+                <span class="text-red-600 text-sm" id="full_name_err"></span>
+
+                <input type="text" name="email" class="p-2 border-none outline-none" placeholder="Email" value="">
+                <span class="text-red-600 text-sm" id="email_err"></span>
+
+                <input type="password" name="password" class="p-2 border-none outline-none" placeholder="Mot de passe" value="">
+                <span class="text-red-600 text-sm" id="password_err"></span>
+
+                <input type="password" name="confirm_pass" class="p-2 border-none outline-none" placeholder="Confirmer le mot de passe" value="">
+                <span class="text-red-600 text-sm" id="confirm_pass_err"></span>
+
+                <input type="text" name="phone" class="p-2 border-none outline-none" placeholder="Numéro de téléphone" value="">
+                <span class="text-red-600 text-sm" id="phone_err"></span>
+
                 <input type="file" name="photo" placeholder="Photo" value="">
-                <input type="submit" name="submit" value="S'inscrire">
+                <span class="text-red-600 text-sm" id="photo_err"></span>
+
+                <div class="pt-2">
+                    <input type="submit" name="submit" class="bg-green-700 w-full p-3 text-white hover:cursor-pointer" value="S'inscrire">
+                </div>
             </form>
     </div>
     
