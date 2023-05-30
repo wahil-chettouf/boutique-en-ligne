@@ -103,6 +103,15 @@
             return $this->is_connected;
         }
 
+        public function disconnect() {
+            unset($_SESSION["id"]);
+            $this->is_connected = false;
+        }
+
+        public function redirect($url) {
+            header("Location: $url");
+            exit();
+        }
 
         /* ------------------ STATIC METHODS ------------------- */
         protected static function getUserById($id) {
@@ -133,5 +142,5 @@
         }
     }
 
-    unset($_SESSION["id"]);
+    //unset($_SESSION["id"]);
     $user = new Utilisateurs();

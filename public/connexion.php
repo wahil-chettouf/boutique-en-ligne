@@ -1,3 +1,13 @@
+<?php
+    require_once("../src/classes/Utilisateurs.php");
+    
+    // redirect to index.php if user is already connected
+    if($user->isConnected())
+    {
+        $user->redirect("../index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>
@@ -8,6 +18,10 @@
     <link href="../dist/style.css" rel="stylesheet">
 </head>
 <body>
+    <div class="absolute top-3 left-3">
+        <a href="../index.php" class="block p-3 bg-red-200 text-blue-700 text-sm hover:underline ">Retour à l'accueil
+        </a>
+    </div>
     <div class="container-full m-auto flex justify-center items-center px-3 bg-slate-100 w-full h-screen">
         <div class="w-full sm:w-96">
             <form id="connectionForm" method="post" class="flex flex-col w-full space-y-1">
@@ -25,7 +39,7 @@
                 </div>
                 
                 <div class="">
-                    <a href="inscription.html" class="text-blue-700 text-sm hover:underline">Déjà connecté ?
+                    <a href="inscription.php" class="text-blue-700 text-sm hover:underline">Déjà connecté ?
                     </a>
                 </div>
             </form>

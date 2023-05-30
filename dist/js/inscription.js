@@ -25,7 +25,7 @@ const process_data = (data) => {
     errors.forEach(error => error.innerText = "");
 
     if("success" in data) {
-        window.location.href = "connexion.html";
+        window.location.href = "connexion.php";
     } else {
         for(const [key, value] of Object.entries(data)) {
             if(value == "") continue;

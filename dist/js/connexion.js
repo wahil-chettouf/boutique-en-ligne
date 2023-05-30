@@ -28,7 +28,7 @@ const process_data = (data) => {
     errors.forEach(error => error.innerText = "");
 
     if("success" in data) {
-        window.location.href = "../index.html";
+        window.location.href = "../index.php";
     } else {
         for(const [key, value] of Object.entries(data)) {
             if(value == "") continue;
