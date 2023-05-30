@@ -22,6 +22,36 @@
             }
         }
 
+        public function add_user($full_name, $email, $password, $phone, $photo, $role) {
+            global $bdd;
+            $sql = "INSERT INTO ". self::TB_NAME ."(email, full_name, password, phone, photo, role, status) VALUES(?, ?, ?, ?, ?, ?, false)";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email, $full_name, $password, $phone, $photo, $role]);
+
+            if($req->rowCount()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function connect($email, $password) {
+            global $bdd;
+            $sql = "SELECT * FROM ". self::TB_NAME ." WHERE email = ? AND password = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email, $password]);
+
+            if($req->rowCount()) {
+                $user = $req->fetch(PDO::FETCH_OBJ);
+                $_SESSION["id"] = $user->id;
+                $this->user_info = $user;
+                $this->is_connected = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function getId() {
             return $this->user_info->id;
         }
@@ -73,6 +103,15 @@
             return $this->is_connected;
         }
 
+        public function disconnect() {
+            unset($_SESSION["id"]);
+            $this->is_connected = false;
+        }
+
+        public function redirect($url) {
+            header("Location: $url");
+            exit();
+        }
 
         /* ------------------ STATIC METHODS ------------------- */
         protected static function getUserById($id) {
@@ -87,15 +126,21 @@
                 return false;
             }
         }
+
+        // Vérifie si l'email existe dans la base de données
+        public static function is_user_exist($email) {
+            global $bdd;
+            $sql = "SELECT * FROM ". self::TB_NAME . " WHERE email = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email]);
+
+            if($req->rowCount()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
-    $_SESSION["id"] = "2";
-    $client = new Utilisateurs();
-
-    if($client->isConnected()) {
-        echo "client connecté";
-        $client->getAllInfo();
-    } else {
-        echo "client n'est pas connecté";
-    }
-
+    //unset($_SESSION["id"]);
+    $user = new Utilisateurs();
