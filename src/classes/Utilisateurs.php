@@ -35,6 +35,23 @@
             }
         }
 
+        public function connect($email, $password) {
+            global $bdd;
+            $sql = "SELECT * FROM ". self::TB_NAME ." WHERE email = ? AND password = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email, $password]);
+
+            if($req->rowCount()) {
+                $user = $req->fetch(PDO::FETCH_OBJ);
+                $_SESSION["id"] = $user->id;
+                $this->user_info = $user;
+                $this->is_connected = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function getId() {
             return $this->user_info->id;
         }
@@ -115,13 +132,6 @@
             }
         }
     }
-    //$_SESSION["id"] = "2";
+
+    unset($_SESSION["id"]);
     $user = new Utilisateurs();
-
-    // if($client->isConnected()) {
-    //     echo "client connecté";
-    //     $client->getAllInfo();
-    // } else {
-    //     echo "client n'est pas connecté";
-    // }
-

@@ -33,10 +33,10 @@
 
         // Vérification du mot de passe
         if(isset($_POST["password"]) && !empty(trim($_POST["password"]))) {
-            if(Authentication::is_password_strong($_POST["password"])) {
+            if(Authentication::is_password_strong(Authentication::process_input($_POST["password"]))) {
                 $password = Authentication::process_input($_POST["password"]);
             } else {
-                $password_err = "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial";
+                $password_err = "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial";
             }
         } else {
             $password_err = "Veuillez entrer votre mot de passe";
@@ -83,7 +83,7 @@
             }
         } else {
             // Afficher les erreurs en utilisant fetch en javascript
-            $tbl_err = array(
+            $response = array(
                 "full_name_err" => $full_name_err,
                 "email_err" => $email_err,
                 "password_err" => $password_err,
@@ -92,6 +92,6 @@
                 "photo_err" => $photo_err,
             );
             
-            echo json_encode($tbl_err);
+            echo json_encode($response);
         }
     }
