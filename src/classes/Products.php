@@ -1,6 +1,6 @@
 <?php
     require_once "Bdd.php";
-    class Product {
+    class Products {
         const TBL_NAME = "tbl_product";
         private $id;
         private $p_name;
