@@ -2,6 +2,7 @@
     require_once "Bdd.php";
     class Products {
         const TBL_NAME = "tbl_product";
+        const TBL_NAME_IMAGES = "tbl_product_photo";
         private $id;
         private $p_name;
         private $p_old_price;
@@ -167,5 +168,14 @@
             $stmt->execute([$sscat_id]);
             $this->product_info = $stmt->fetchAll();
             return $this->product_info;
+        }
+
+        public static function getFirstProductImage($product_id) {
+            // get toutes les images qui sont dans la table p_images qui sont lies avec l'id de product
+            global $bdd;
+            $sql = "SELECT photo FROM " . self::TBL_NAME_IMAGES . " WHERE p_id = ?";
+            $smtp = $bdd->prepare($sql);
+            $smtp->execute([$product_id]);
+            return $smtp->fetchObject();
         }
     }

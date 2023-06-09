@@ -1,5 +1,7 @@
 const productsBox = document.querySelector('#products');
 
+
+
 // Get the products from the database
 const getProducts = async () => {
     const res = await fetch("../src/api/product/read.php");
@@ -7,17 +9,35 @@ const getProducts = async () => {
     return data;
 };
 
+// Get the product images from the database
+const getProductImages = async (p_id) => {
+    const res = await fetch(`../src/api/product/read_img.php?p_id=${p_id}`);
+    const data = await res.json()
+    return data.photo;
+};
+
+// afficher les images de chaque produit
+const displayProductImages = async (p_id) => {
+    const productImage = await getProductImages(p_id);
+    const img = `
+        <img class="h-full" src="../dist/images/product/homme/${productImage}" alt="${productImage}">
+    `
+    return img;
+};
+
+
 // Display the products
 const displayProducts = async () => {
     const products = await getProducts();
-    products.forEach(product => {
+    products.forEach(async product => {
+
         const article = document.createElement('article');
         article.classList.add('flex', 'flex-col', 'max-sm:basis-1', 'py-3', 'space-y-2', 'bg-slate-100');
         article.innerHTML = `
                 <article class="flex flex-col max-sm:basis-1 py-3 px-2 space-y-2 bg-slate-100">
-                <h3 class=""><a href="">${product.p_name}</a></h3>
+                <h3 class=""><a href="">${product.p_id}</a></h3>
                 <div class="flex justify-center h-56">
-                    <img class="h-full" src="../dist/images/product/homme/img-h-1.jpg" alt="">
+                    ${await displayProductImages(product.p_id)}
                 </div>
                 <div class="">
                     <h4>Description</h4>
