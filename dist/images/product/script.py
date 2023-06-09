@@ -7,7 +7,7 @@ path = "dist/images/product/homme"
 
 # parcourir le dossier dist/images/product/homme
 
-num = 106
+# num = 106
 
 for name in os.listdir(path):
     chemin_fichier = os.path.join(path, name)
@@ -22,3 +22,5 @@ for name in os.listdir(path):
         # Renommer le fichier
         os.rename(chemin_fichier, new_name_path)
         num += 0
+
+# Creer un boucle 86 jusqu'a 132 qui va creer des fichiers .jpg

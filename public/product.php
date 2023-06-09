@@ -60,7 +60,7 @@
                 <section id="" class="basis-3/4">
                     <div class="flex flex-col sm:px-1 space-y-3 text-center bg-white">
                         <h2 class="uppercase py-2 bg-red-100">produits :</h2>
-                        <div id="products" class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        <div id="products" class="grid gap-2 grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
 
                         </div>
                     </div>
