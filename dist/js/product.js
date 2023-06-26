@@ -20,7 +20,7 @@ const getProductImages = async (p_id) => {
 const displayProductImages = async (p_id) => {
     const productImage = await getProductImages(p_id);
     const img = `
-        <img class="h-full" src="../dist/images/product/homme/${productImage}" alt="${productImage}">
+        <img class="h-full" src="../dist/images/product/homme/${86}.jpg" alt="${productImage}">
     `
     return img;
 };

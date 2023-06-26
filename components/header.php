@@ -44,13 +44,13 @@
                         <?php elseif($user->isClient()) : ?>
                             <li class="hover:text-stone-600"><a href="#" class="">A propos</a></li>
                             <li class="hover:text-stone-600"><a href="#" class="max-md:block p-1">Contact</a></li>
-                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/product.php" class="max-md:block p-1">Produits</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/products.php" class="max-md:block p-1">Produits</a></li>
                             <a class="max-md:block p-1" href="./src/inc/deconnexion.php">Déconnexion</a>
                         <?php endif; ?>
                     <?php else: ?>
                             <li class="hover:text-stone-600"><a href="#" class="max-md:block p-1">A propos</a></li>
                             <li class="hover:text-stone-600"><a href="#" class="max-md:block p-1">Contact</a></li>
-                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/product.php" class="max-md:block p-1">Produits</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/products.php" class="max-md:block p-1">Produits</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/connexion.php" class="max-md:block p-1">Connexion</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/inscription.php" class="max-md:block p-1">Inscription</a></li>
                         <?php endif; ?>

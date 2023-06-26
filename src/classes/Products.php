@@ -42,7 +42,7 @@
 
         public static function getProductById($id) {
             global $bdd;
-            $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE id = ?";
+            $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE p_id = ?";
             $stmt = $bdd->prepare($sql);
             $stmt->execute([$id]);
             return $stmt->fetchObject();
