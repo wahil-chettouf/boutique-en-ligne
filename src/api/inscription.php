@@ -73,7 +73,7 @@
         // Vérification des erreurs de saisie
         if(empty($full_name_err) && empty($email_err) && empty($password_err) && empty($confirm_pass_err) && empty($phone_err) && empty($photo_err)) {
             // Vérification si l'utilisateur a été ajouté
-            if($user->add_user($full_name, $email, $password, $phone, $photo, "user")) {
+            if($user->add_user($full_name, $email, $password, $phone, $photo, "client")) {
                 // Déplacer la photo dans le dossier images
                 echo json_encode(array("success" => "L'utilisateur a été ajouté avec succès"));
                 

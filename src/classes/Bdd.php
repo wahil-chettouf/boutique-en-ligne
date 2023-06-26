@@ -3,7 +3,7 @@
 
     class Bdd {
         private $host = "localhost";
-        private $dbname = "ecommerceweb";
+        private $dbname = "e_commerce";
         private $user_name = "root";
         private $password = "";
         private $pdo;

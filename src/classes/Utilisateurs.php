@@ -108,6 +108,18 @@
             $this->is_connected = false;
         }
 
+        public function isSuperAdmin() {
+            return $this->getRole() == "super_admin";
+        }
+
+        public function isAdmin() {
+            return $this->getRole() == "admin";
+        }
+
+        public function isClient() {
+            return $this->getRole() == "client";
+        }
+
         public function redirect($url) {
             header("Location: $url");
             exit();
