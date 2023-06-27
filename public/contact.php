@@ -86,6 +86,6 @@
         </div>
     </div>
 
-    <script src="./dist/js/script.js"></script>
+    <script src="../dist/js/script.js"></script>
 </body>
 </html>
