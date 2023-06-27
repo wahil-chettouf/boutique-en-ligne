@@ -10,4 +10,12 @@
             $products = Products::getAllProducts();
             echo json_encode($products);
         }
+    } 
+    
+    if($_SERVER["REQUEST_METHOD"] == "DELETE") {
+        // verifie si on recois une requete delete avec l'id de product on supprime le product depuis la method deleteProductById($id)
+        if(isset($_GET['delete_p_id'])) {
+            $product = Products::deleteProductById($_GET['delete_p_id']);
+            echo json_encode($product);
+        }
     }

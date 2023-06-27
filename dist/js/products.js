@@ -2,7 +2,7 @@ const productsBox = document.querySelector('#products');
 
 // Get the products from the database
 const getProducts = async () => {
-    const res = await fetch("../src/api/product/read.php");
+    const res = await fetch("../src/api/product/product.php");
     const data = await res.json()
     return data;
 };

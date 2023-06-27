@@ -55,6 +55,22 @@
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
 
+        public static function updateProduct($p_name, $p_old_price, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id) {
+            global $bdd;
+            $sql = "UPDATE " . self::TBL_NAME . " SET p_name = ?, p_old_price = ?, p_current_price = ?, p_qty = ?, p_featured_photo = ?, p_description = ?, p_short_description = ?, p_condition = ?, p_return_policy = ?, ecat_id = ? WHERE id = ?";
+            $stmt = $bdd->prepare($sql);
+            $stmt->execute([$p_name, $p_old_price, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id]);
+            return $stmt->rowCount();
+        }
+
+        public static function deleteProductById($id) {
+            global $bdd;
+            $sql = "DELETE FROM " . self::TBL_NAME . " WHERE p_id = ?";
+            $stmt = $bdd->prepare($sql);
+            $stmt->execute([$id]);
+            return $stmt->rowCount();
+        }
+
         // Ajouter toutes les getters methods ici qui prenne ces information depuis l'objet product_info
         public function getId() {
             return $this->product_info->id;

@@ -107,7 +107,7 @@
                         // Déplacer le fichier vers un répertoire approprié
                         $destination = "../../../dist/images/product/". $_POST["ecat_id"] . "/" . $file["name"];
                         if (move_uploaded_file($file["tmp_name"], $destination)) {
-                            $p_featured_photo = "../dist/images/product/". $_POST["ecat_id"] . "/" . $file["name"];
+                            $p_featured_photo = "$path/dist/images/product/". $_POST["ecat_id"] . "/" . $file["name"];
                         } else {
                             $errors["p_featured_photo"] = "Erreur lors de l'importation de l'image";
                         }

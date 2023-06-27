@@ -5,7 +5,6 @@
     // if($_SERVER['REQUEST_METHOD'] === 'GET') 
     if(isset($_GET['p_id'])) {
         $product = Products::getProductById($_GET['p_id']);
-        $productImage = Products::getFirstProductImage($_GET['p_id'])->photo;
     } 
 ?>
 
@@ -27,7 +26,7 @@
                 <section id="" class="sm:basis-2/4">
                     <div class="py-2 text-center uppercase">
                         <div class="flex sm:justify-center">
-                            <img class="w-56" src="../dist/images/product/homme/<?php echo $productImage?>" alt="<?php echo $productImage?>">
+                            <img class="w-56" src="<?php echo $product->p_featured_photo?>" alt="<?php echo $product->p_name?>">
                         </div>
                     </div>
                 </section>
@@ -138,7 +137,6 @@
             </div>
         </div>
     </div>
-    <!-- <script src="../dist/js/product.js"></script> -->
     <script src="../dist/js/script.js"></script>
 </body>
 </html>
