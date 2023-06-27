@@ -39,6 +39,7 @@
                         <?php if($user->isClient()) :?>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/propos.php" class="max-md:block max-md:pl-3 p-1">A propos</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/contact.php" class="max-md:block max-md:pl-3 p-1">Contact</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/panier.php" class="max-md:block max-md:pl-3 p-1">panier</a></li>
                         <?php else :?>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/admin/dashboard.php" class="max-md:block max-md:pl-3 p-1">Dashboard</a></li>
                         <?php endif; ?>
@@ -51,6 +52,7 @@
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/products.php" class="max-md:block max-md:pl-3 p-1">Produits</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/connexion.php" class="max-md:block max-md:pl-3 p-1">Connexion</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/inscription.php" class="max-md:block max-md:pl-3 p-1">Inscription</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/panier.php" class="max-md:block max-md:pl-3 p-1">panier</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>

@@ -17,7 +17,7 @@
     <div class="app box-border">
         <?php require_once '../../components/header.php'; ?>
         
-        <div class="container flex flex-col max-md:space-y-6 px-2 mx-auto my-9 md:flex-row md:justify-between items-start">
+        <div class="container flex flex-col max-md:space-y-6 px-2 mx-auto my-9 md:flex-row md:justify-between md:space-x-6">
             <div class="">
                 <?php require_once "../inc/side_bar.php"?>
             </div>
@@ -42,6 +42,6 @@
         </div>
     </div>
     <!-- <script src="../dist/js/product.js"></script> -->
-    <script src="../dist/js/script.js"></script>
+    <script src="<?php echo $path?>/dist/js/script.js"></script>
 </body>
 </html>

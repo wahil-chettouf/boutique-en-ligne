@@ -1,30 +1,11 @@
 const productsBox = document.querySelector('#products');
 
-
-
 // Get the products from the database
 const getProducts = async () => {
     const res = await fetch("../src/api/product/read.php");
     const data = await res.json()
     return data;
 };
-
-// Get the product images from the database
-const getProductImages = async (p_id) => {
-    const res = await fetch(`../src/api/product/read_img.php?p_id=${p_id}`);
-    const data = await res.json()
-    return data.photo;
-};
-
-// afficher les images de chaque produit
-const displayProductImages = async (p_id) => {
-    const productImage = await getProductImages(p_id);
-    const img = `
-        <img class="h-full" src="../dist/images/product/homme/${productImage}" alt="${productImage}">
-    `
-    return img;
-};
-
 
 // Display the products
 const displayProducts = async () => {
@@ -36,7 +17,7 @@ const displayProducts = async () => {
         article.innerHTML = `
             <a href="../public/product.php?p_id=${product.p_id}">
                 <div class="flex justify-center h-56">
-                    ${await displayProductImages(product.p_id)}
+                    <img class="h-full" src="${product.p_featured_photo}" alt="${product.p_name}">
                 </div>
                 
                 <div class="flex flex-col justify-between px-1 pb-2">
