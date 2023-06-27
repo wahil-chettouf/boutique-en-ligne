@@ -29,7 +29,6 @@
 
         public static function addProduct($p_name, $p_old_price, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $feature, $p_condition, $p_return_policy, $p_total_view, $p_is_featured, $p_is_active, $ecat_id) {
 
-
             global $bdd;
             $sql = "INSERT INTO " . self::TBL_NAME . " (p_name, p_old_price, p_current_price, p_qty, p_featured_photo, p_description, p_short_description, feature, p_condition, p_return_policy, p_total_view, p_is_featured, p_is_active, ecat_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

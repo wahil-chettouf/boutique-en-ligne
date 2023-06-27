@@ -38,14 +38,16 @@
                         <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/products.php" class="max-md:block max-md:pl-3 p-1">Produits</a></li>
                         <?php if($user->isClient()) :?>
                             <li class="hover:text-stone-600 max-md:pl-3 p-1"><a href="#" class="">A propos</a></li>
-                            <li class="hover:text-stone-600"><a href="#" class="max-md:block max-md:pl-3 p-1">Contact</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/contact.php" class="max-md:block max-md:pl-3 p-1">Contact</a></li>
                         <?php else :?>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/admin/dashboard.php" class="max-md:block max-md:pl-3 p-1">Dashboard</a></li>
                         <?php endif; ?>
-                        <a class="max-md:block max-md:pl-3 p-1" href="<?php echo $path?>/src/inc/deconnexion.php">Déconnexion</a>
+                        <li class="">
+                            <a class="max-md:block max-md:pl-3 p-1" href="<?php echo $path?>/src/inc/deconnexion.php">Déconnexion</a>
+                        </li>
                     <?php else: ?>
                             <li class="hover:text-stone-600"><a href="#" class="max-md:block max-md:pl-3 p-1">A propos</a></li>
-                            <li class="hover:text-stone-600"><a href="#" class="max-md:block max-md:pl-3 p-1">Contact</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/contact.php" class="max-md:block max-md:pl-3 p-1">Contact</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/products.php" class="max-md:block max-md:pl-3 p-1">Produits</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/connexion.php" class="max-md:block max-md:pl-3 p-1">Connexion</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/inscription.php" class="max-md:block max-md:pl-3 p-1">Inscription</a></li>

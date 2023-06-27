@@ -19,8 +19,20 @@
         <?php require_once '../components/header.php'; ?>
         
         <div class="container flex flex-col space-y-6 px-2 mx-auto my-9">
-            <div class="flex flex-col max-sm:space-y-3 justify-between w-full sm:flex-row sm:space-x-2 ">
-
+            <div class="">
+                <section class="" id="sideBar">
+                    <div class="flex flex-col space-y-3">
+                        <div class="flex flex-col space-y-1">
+                            <div class="flex justify-between">
+                                <h2 class="font-bold">Dashboard</h2>
+                            </div>
+                            <div class="flex flex-col space-y-1">
+                                <a href="./product_manager/products_manager.php" class="text-slate-400 hover:text-slate-600">Produits</a>
+                                <a href="dashboard.php" class="text-slate-400 hover:text-slate-600">Utilisateurs</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
