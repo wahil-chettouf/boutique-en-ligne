@@ -15,13 +15,13 @@
             }
         }
 
-        public static function addProduct($p_name, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $ecat_id) {
+        public static function addProduct($p_name, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $ecat_id) {
             global $bdd;
-            $sql = "INSERT INTO " . self::TBL_NAME . " (p_name, p_current_price, p_qty, p_featured_photo, p_description, p_short_description, ecat_id) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO " . self::TBL_NAME . " (p_name, p_current_price, p_stock, p_featured_photo, p_description, p_short_description, ecat_id) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $bdd->prepare($sql);
 
-            $stmt->execute([$p_name, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $ecat_id]);
+            $stmt->execute([$p_name, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $ecat_id]);
 
             return $bdd->lastInsertId();
         }
@@ -42,11 +42,11 @@
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
 
-        public static function updateProduct($p_name, $p_old_price, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id) {
+        public static function updateProduct($p_name, $p_old_price, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id) {
             global $bdd;
-            $sql = "UPDATE " . self::TBL_NAME . " SET p_name = ?, p_old_price = ?, p_current_price = ?, p_qty = ?, p_featured_photo = ?, p_description = ?, p_short_description = ?, p_condition = ?, p_return_policy = ?, ecat_id = ? WHERE id = ?";
+            $sql = "UPDATE " . self::TBL_NAME . " SET p_name = ?, p_old_price = ?, p_current_price = ?, p_stock = ?, p_featured_photo = ?, p_description = ?, p_short_description = ?, p_condition = ?, p_return_policy = ?, ecat_id = ? WHERE id = ?";
             $stmt = $bdd->prepare($sql);
-            $stmt->execute([$p_name, $p_old_price, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id]);
+            $stmt->execute([$p_name, $p_old_price, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id]);
             return $stmt->rowCount();
         }
 
@@ -76,7 +76,7 @@
         }
 
         public function getQty() {
-            return $this->product_info->p_qty;
+            return $this->product_info->p_stock;
         }
 
         public function getFeaturedPhoto() {

@@ -4,7 +4,7 @@
     require_once 'C:\xampp\htdocs\boutique-en-ligne\src\inc\path.php';
     header("Content-Type: application/json; charset=UTF-8");
 
-    $p_name = $p_current_price = $p_qty = $p_featured_photo = "";
+    $p_name = $p_current_price = $p_stock = $p_featured_photo = "";
     $p_description = $p_short_description = $p_feature = $ecat_id = "";
 
     $errors = array();
@@ -40,11 +40,11 @@
             $errors["p_current_price"] = "Veuillez entrer un prix valide";
         }
     
-        // Valider le champ p_qty
-        if (isset($_POST["p_qty"])) {
-            $p_qty = intval($_POST["p_qty"]);
+        // Valider le champ p_stock
+        if (isset($_POST["p_stock"])) {
+            $p_stock = intval($_POST["p_stock"]);
         } else {
-            $errors["p_qty"] = "Veuillez entrer une quantité valide";
+            $errors["p_stock"] = "Veuillez entrer une quantité valide";
         }
     
         // Valider le champ p_description
@@ -110,7 +110,7 @@
             }
 
             if (empty($errors)) {
-                $product = Products::addProduct($p_name, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $ecat_id);
+                $product = Products::addProduct($p_name, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $ecat_id);
             } else {
                 $response = array(
                     "errors" => $errors

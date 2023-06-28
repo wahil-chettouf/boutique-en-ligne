@@ -43,7 +43,7 @@
                             <span>EUR <?php echo $product->p_current_price?> € TVA incluse</span>
                         </div>
                         <div class="">
-                            <?php if($product->p_qty > 0) :?>
+                            <?php if($product->p_stock > 0) :?>
                                 <span>Produit disponible</span>
                             <?php else :?>
                                 <span>Produit indisponible</span>
@@ -59,7 +59,7 @@
                                         <button class="btn btn-primary bg-slate-400 w-6" id="btn-minus">-</button>
                                     </div>
                                     <div class="">
-                                        <input type="number" name="qty" id="qty" value="1" min="1" max="<?php echo $product->p_qty?>" class="border-none outline-none w-6 bg-red-100  text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                                        <input type="number" name="qty" id="qty" value="1" min="1" max="<?php echo $product->p_stock?>" class="border-none outline-none w-6 bg-red-100  text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
                                     </div>
                                     <div class="">
                                         <button class="btn btn-primary bg-slate-400 w-6" id="btn-plus">+</button>
