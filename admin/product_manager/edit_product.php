@@ -42,12 +42,12 @@
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="p_current_price">Prix actuel :</label>
-                            <input type="number" id="p_current_price" name="p_current_price" step="0.01" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                            <input type="number" id="p_current_price" name="p_current_price" step="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
                             <span id="p_current_price_error" class="text-xs text-red-600 error"></span>
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="p_qty">Quantité :</label>
-                            <input type="number" id="p_qty" name="p_qty" min="1" value="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                            <input type="number" id="p_qty" name="p_qty" min="1" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
                             <span id="p_qty_error" class="text-xs text-red-600 error"></span>
                         </div>
                         <div class="mb-4">

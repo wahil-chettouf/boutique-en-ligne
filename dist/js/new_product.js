@@ -29,17 +29,7 @@ newProduct.addEventListener('click', (e) => {
     });
 
     const formData = new FormData(newProductForm);
-    
-    // On récupère les features
-    // const features = [];
-    // const featuresAjoutees = document.querySelectorAll('#featuresAjoutees li');
-    // featuresAjoutees.forEach(feature => {
-    //     features.push(feature.textContent);
-    // });
-    // formData.append('p_feature', JSON.stringify(features));
-
-    // On envoie la requête 
-    fetch("../../src/api/product/insertProduct.php", {
+    fetch("../../src/api/product/product.php", {
         method: "POST",
         body: formData,
     })
@@ -70,5 +60,4 @@ const displayError = (errors) => {
         spanError.textContent = value;
         //console.log(spanError);
     }
-    
 };

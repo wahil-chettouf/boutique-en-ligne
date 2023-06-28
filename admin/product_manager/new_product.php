@@ -45,7 +45,7 @@
                             <span id="p_name_error" class="text-xs text-red-600 error"></span>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="p_current_price">Prix actuel :</label>
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="p_current_price">Prix :</label>
                             <input type="number" id="p_current_price" name="p_current_price" step="0.01" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
                             <span id="p_current_price_error" class="text-xs text-red-600 error"></span>
                         </div>
@@ -79,17 +79,6 @@
                         </div>
                         <div id="featuresAjoutees" class="flex space-x-3">
                             <!-- Ici seront affichées les p_feature ajoutés -->
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="p_condition" class="block text-gray-700 text-sm font-bold mb-2">Condition:</label>
-                            <input type="text" id="p_condition" name="p_condition" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
-                            <span id="p_condition_error" class="text-xs text-red-600 error"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label for="p_return_policy" class="block text-gray-700 text-sm font-bold mb-2">Politique de retour:</label>
-                            <input type="text" id="p_return_policy" name="p_return_policy" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
-                            <span id="p_return_policy_error" class="text-xs text-red-600 error"></span>
                         </div>
                         <div class="my-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Catégorie :</label>
