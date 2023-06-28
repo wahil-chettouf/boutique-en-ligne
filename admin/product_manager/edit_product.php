@@ -2,6 +2,16 @@
     require_once '../../src/classes/Utilisateurs.php'; 
     require_once '../../src/classes/Products.php'; 
     require_once 'C:\xampp\htdocs\boutique-en-ligne\src\inc\path.php';
+
+    // on recupere le produit depuis la base de donnees en utilisant l'id passe en parametre
+    if(isset($_GET["p_id"]) && !empty(trim($_GET["p_id"]))){
+        $product = new Products();
+        $product = $product->getProductById($_GET["p_id"]);
+    } else {
+        header("location: product_manager.php");
+        exit();
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -43,11 +53,6 @@
                             <label for="p_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du produit:</label>
                             <input type="text" id="p_name" name="p_name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
                             <span id="p_name_error" class="text-xs text-red-600 error"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="p_old_price">Ancien prix :</label>
-                            <input type="number" id="p_old_price" name="p_old_price" step="0.01" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
-                            <span id="p_old_price_error" class="text-xs text-red-600 error"></span>
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="p_current_price">Prix actuel :</label>

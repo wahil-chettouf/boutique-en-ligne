@@ -5,7 +5,7 @@
     require_once 'C:\xampp\htdocs\boutique-en-ligne\src\inc\path.php';
     header("Content-Type: application/json; charset=UTF-8");
     
-    $p_name = $p_old_price = $p_current_price = $p_qty = $p_featured_photo = "";
+    $p_name = $p_current_price = $p_qty = $p_featured_photo = "";
     $p_description = $p_short_description = $p_feature = $p_condition = $p_return_policy = $ecat_id = "";
 
     $errors = array();
@@ -20,15 +20,8 @@
             $errors["p_name"] = "Veuillez entrer le nom du produit";
         }
     
-        // Valider le champ p_old_price
-        if (isset($_POST["p_old_price"]) && is_numeric($_POST["p_old_price"])) {
-            $p_old_price = floatval($_POST["p_old_price"]);
-        } else {
-            $errors["p_old_price"] = "Veuillez entrer un prix valide";
-        }
-    
         // Valider le champ p_current_price
-        if (isset($_POST["p_current_price"]) && is_numeric($_POST["p_old_price"])) {
+    if (isset($_POST["p_current_price"])) {
             $p_current_price = floatval($_POST["p_current_price"]);
         } else {
             $errors["p_current_price"] = "Veuillez entrer un prix valide";
@@ -122,7 +115,7 @@
             }
 
             if (empty($errors)) {
-                $produit = Products::addProduct($p_name, $p_old_price, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id);
+                $produit = Products::addProduct($p_name, $p_current_price, $p_qty, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id);
             } else {
                 $response = array(
                     "errors" => $errors

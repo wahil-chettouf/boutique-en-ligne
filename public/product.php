@@ -79,8 +79,8 @@
                             </div>
                         </div>
                         <div class="">
-                            <span class="text-sm">Délai de Traitement:sera calculé lorsque l'article aura été sélectionné
-                                Temps de livraison:Envoi Express4-6 jours ouvrés
+                            <span class="text-sm">Délai de Traitement : sera calculé lorsque l'article aura été sélectionné
+                                Temps de livraison:Envoi Express 4-6 jours ouvrés
                             </span>
                         </div>
                     </div>
