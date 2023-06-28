@@ -3,28 +3,15 @@
     class Products {
         const TBL_NAME = "tbl_product";
         const TBL_NAME_IMAGES = "tbl_product_photo";
-        private $id;
-        private $p_name;
-        private $p_old_price;
-        private $p_current_price;
-        private $p_qty;
-        private $p_updated_at;
-        private $p_featured_photo;
-        private $p_description;
-        private $p_short_description;
-        private $feature;
-        private $p_condition;
-        private $p_return_policy;
-        private $p_total_view;
-        private $p_is_featured;
-        private $p_is_active;
         private $ecat_id;
 
         private $product_info;
 
-        public function __construct(object $product) {
-            if($product) {
-                $this->product_info = $product;
+        public function __construct($p_id = null) {
+            if($p_id) {
+                $this->product_info = $this->getProductById($p_id);
+            } else {
+                $this->product_info = new stdClass();
             }
         }
 

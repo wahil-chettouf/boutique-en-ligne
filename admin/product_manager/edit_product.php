@@ -5,7 +5,7 @@
 
     // on recupere le produit depuis la base de donnees en utilisant l'id passe en parametre
     if(isset($_GET["p_id"]) && !empty(trim($_GET["p_id"]))){
-        $product = new Products();
+        $product = new Products($_GET["p_id"]);
         $product = $product->getProductById($_GET["p_id"]);
     } else {
         header("location: product_manager.php");
@@ -34,21 +34,7 @@
 
             <div class="flex justify-center w-full">
                 <section class="flex flex-col space-y-6 w-full xl:w-1/3">
-                    <div class="">
-                        <ul class="flex justify-center space-x-2">
-                            <li class="">
-                                <a href="product_manager.php" class="block text-white bg-blue-600 py-2 px-3 text-sm">produits</a>
-                            </li>
-                            <li class="">
-                                <a href="new_product.php" class="block text-white bg-blue-600 py-2 px-3 text-sm">Ajouter</a>
-                            </li>
-                            <li class="">
-                                <a href="#" class="block text-white bg-blue-600 py-2 px-3 text-sm">commandes</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <form id="newProductForm" method="POST" enctype="multipart/form-data">
+                    <form id="updateProductForm" method="POST" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label for="p_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du produit:</label>
                             <input type="text" id="p_name" name="p_name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
@@ -116,14 +102,14 @@
                             <span id="ecat_id_error" class="text-xs text-red-600 error"></span>
                         </div>
 
-                        <button type="submit" id="newProduct" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">update</button>
+                        <button type="submit" id="updateProductBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">update</button>
                     </form>
                 </section>
             </div>
         </div>
     </div>
     <!-- <script src="../dist/js/product.js"></script> -->
-    <script src="<?php echo $path?>/dist/js/new_product.js"></script>
+    <script src="<?php echo $path?>/dist/js/product/edit_product.js"></script>
     <script src="<?php echo $path?>/dist/js/script.js"></script>
 </body>
 </html>

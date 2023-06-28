@@ -19,3 +19,8 @@
             echo json_encode($product);
         }
     }
+
+    // si on recois une requete update
+    if($_SERVER["REQUEST_METHOD"] == "PUT") {
+        echo json_encode(["status" => "success"]);
+    }
