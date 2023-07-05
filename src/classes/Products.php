@@ -60,7 +60,7 @@
 
         // Ajouter toutes les getters methods ici qui prenne ces information depuis l'objet product_info
         public function getId() {
-            return $this->product_info->id;
+            return $this->product_info->p_id;
         }
 
         public function getName() {
@@ -224,9 +224,9 @@
         // method pour modifier les colonnes de la table product
         public function updateColumn($name, $value) {
             global $bdd;
-            $sql = "UPDATE " . self::TBL_NAME . " SET $name = ? WHERE id = ?";
+            $sql = "UPDATE " . self::TBL_NAME . " SET $name = ? WHERE p_id = ".$this->getId();
             $stmt = $bdd->prepare($sql);
-            $stmt->execute([$value, $this->product_info->id]);
+            $stmt->execute([$value]);
         }
 
 
@@ -334,6 +334,4 @@
         public function updateIsOutOfStockMessageIconBgColor($is_out_of_stock_message_icon_bg_color) {
             $this->updateColumn('p_is_out_of_stock_message_icon_bg_color', $is_out_of_stock_message_icon_bg_color);
         }
-
-
     }
