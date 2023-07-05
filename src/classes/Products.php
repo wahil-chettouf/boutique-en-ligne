@@ -42,14 +42,6 @@
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
 
-        public static function updateProduct($p_name, $p_old_price, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id) {
-            global $bdd;
-            $sql = "UPDATE " . self::TBL_NAME . " SET p_name = ?, p_old_price = ?, p_current_price = ?, p_stock = ?, p_featured_photo = ?, p_description = ?, p_short_description = ?, p_condition = ?, p_return_policy = ?, ecat_id = ? WHERE id = ?";
-            $stmt = $bdd->prepare($sql);
-            $stmt->execute([$p_name, $p_old_price, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $p_condition, $p_return_policy, $ecat_id, $id]);
-            return $stmt->rowCount();
-        }
-
         public static function deleteProductById($id) {
             global $bdd;
             $sql = "DELETE FROM " . self::TBL_NAME . " WHERE p_id = ?";
@@ -95,20 +87,8 @@
             return $this->product_info->feature;
         }
 
-        public function getCondition() {
-            return $this->product_info->p_condition;
-        }   
-
-        public function getReturnPolicy() {
-            return $this->product_info->p_return_policy;
-        }
-
         public function getTotalView() {
             return $this->product_info->p_total_view;
-        }
-
-        public function getIsFeatured() {
-            return $this->product_info->p_is_featured;
         }
 
         public function getIsActive() {
@@ -240,11 +220,15 @@
         }
 
         public function updatePrice($price) {
-            $this->updateColumn('p_price', $price);
+            $this->updateColumn('p_current_price', $price);
         }
 
-        public function updateQuantity($quantity) {
-            $this->updateColumn('p_quantity', $quantity);
+        public function updateStock($stock) {
+            $this->updateColumn('p_stock', $stock);
+        }
+
+        public function updateImage($p_featured_photo) {
+            $this->updateColumn('p_featured_photo', $p_featured_photo);
         }
 
         public function updateShortDescription($short_description) {
@@ -255,44 +239,12 @@
             $this->updateColumn('p_description', $description);
         }
 
-        public function updateReturnPolicy($return_policy) {
-            $this->updateColumn('p_return_policy', $return_policy);
+        public function updateCategoryId($ecat_id) {
+            $this->updateColumn('ecat_id', $ecat_id);
         }
 
         public function updateTotalView() {
             $this->updateColumn('p_total_view', $this->product_info->p_total_view + 1);
-        }
-
-        public function updateIsFeatured($is_featured) {
-            $this->updateColumn('p_is_featured', $is_featured);
-        }
-
-        public function updateIsNew($is_new) {
-            $this->updateColumn('p_is_new', $is_new);
-        }
-
-        public function updateIsPopular($is_popular) {
-            $this->updateColumn('p_is_popular', $is_popular);
-        }
-
-        public function updateIsOffer($is_offer) {
-            $this->updateColumn('p_is_offer', $is_offer);
-        }
-
-        public function updateIsBestSeller($is_best_seller) {
-            $this->updateColumn('p_is_best_seller', $is_best_seller);
-        }
-
-        public function updateIsFreeShipping($is_free_shipping) {
-            $this->updateColumn('p_is_free_shipping', $is_free_shipping);
-        }
-
-        public function updateIsCod($is_cod) {
-            $this->updateColumn('p_is_cod', $is_cod);
-        }
-
-        public function updateIsDeleted($is_deleted) {
-            $this->updateColumn('p_is_deleted', $is_deleted);
         }
 
         public function updateIsPublished($is_published) {
@@ -317,21 +269,5 @@
 
         public function updateIsOutOfStockMessageBorderColor($is_out_of_stock_message_border_color) {
             $this->updateColumn('p_is_out_of_stock_message_border_color', $is_out_of_stock_message_border_color);
-        }
-
-        public function updateIsOutOfStockMessageTextColor($is_out_of_stock_message_text_color) {
-            $this->updateColumn('p_is_out_of_stock_message_text_color', $is_out_of_stock_message_text_color);
-        }
-
-        public function updateIsOutOfStockMessageIcon($is_out_of_stock_message_icon) {
-            $this->updateColumn('p_is_out_of_stock_message_icon', $is_out_of_stock_message_icon);
-        }
-
-        public function updateIsOutOfStockMessageIconColor($is_out_of_stock_message_icon_color) {
-            $this->updateColumn('p_is_out_of_stock_message_icon_color', $is_out_of_stock_message_icon_color);
-        }
-
-        public function updateIsOutOfStockMessageIconBgColor($is_out_of_stock_message_icon_bg_color) {
-            $this->updateColumn('p_is_out_of_stock_message_icon_bg_color', $is_out_of_stock_message_icon_bg_color);
         }
     }
