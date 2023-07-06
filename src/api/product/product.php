@@ -35,7 +35,7 @@
         }
     
         // Valider le champ p_current_price
-        if (isset($_POST["p_current_price"])) {
+        if (isset($_POST["p_current_price"]) && !empty(trim($_POST["p_current_price"]))) {
             $p_current_price = floatval($_POST["p_current_price"]);
         } else {
             $errors["p_current_price"] = "Veuillez entrer un prix valide";
@@ -81,24 +81,37 @@
             $errors["ecat_id"] = "Veuillez sélectionner une catégorie valide";
         }
 
+        // Vérifier si le tableau d'erreurs est vide, sauf le champ p_featured_photo
         if (empty($errors)) {
-            // Vérifier si le fichier a été téléchargé sans erreur.
-            uploadImage("../assets/images/products/", $_FILES["p_featured_photo"]);
+            // Chemin du dossier de destination des images
+            $target_dir = "../../../dist/images/product/" . $_POST["ecat_id"];   
 
-            if (empty($errors)) {
-                $product = Products::addProduct($p_name, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $ecat_id);
+            // Valider le champ p_featured_photo
+            if(isset($_FILES["p_featured_photo"]) && $_FILES["p_featured_photo"]["error"] == 0) {
+                // Upload de l'image
+                $imageResult = Authentication::uploadImage($target_dir ,$_FILES["p_featured_photo"]);
+
+                // Vérifier si le fichier a été téléchargé sans erreur.
+                if($imageResult["success"] == true) {
+                    $p_featured_photo = $imageResult["p_featured_photo"];
+                    $product = Products::addProduct($p_name, $p_current_price, $p_stock, $p_featured_photo, $p_description, $p_short_description, $ecat_id);
+
+                    // Réponse JSON en cas de succès
+                    $response = array(
+                        "success" => "Le produit a été ajouté avec succès"
+                    );
+                } else {
+                    $errors["p_featured_photo"] = $imageResult["message"];
+                    $response = array(
+                        "errors" => $errors
+                    );
+                }
             } else {
+                $errors["p_featured_photo"] = "Veuillez sélectionner une image";
                 $response = array(
                     "errors" => $errors
                 );
-                echo json_encode($response);
-                exit();
             }
-    
-            // Réponse JSON en cas de succès
-            $response = array(
-                "success" => "Le produit a été ajouté avec succès"
-            );
         } else {
             // Réponse JSON en cas d'erreurs de Authentication
             $response = array(
@@ -195,12 +208,12 @@
             }
 
             // Valider le champ p_featured_photo
-            if ($_FILES["p_featured_photo"] && !empty($_FILES["p_featured_photo"]["name"])) {
+            if (isset($_FILES["p_featured_photo"]) && !empty($_FILES["p_featured_photo"]["name"])) {
                 // Récupérer le nom du l'image courante
                 $old_image = $product->getFeaturedPhoto();
 
                 
-                if(uploadImage("../assets/images/products/", $_FILES["p_featured_photo"])) {
+                if(uploadImage("../assets/images/products/", $data["ecat_id"], $_FILES["p_featured_photo"])) {
                     // Ajouter le message de succès à la réponse
                     $response["p_featured_photo"] = "L'image du produit a été mise à jour avec succès";
                 } else {
@@ -243,35 +256,9 @@
         }
     }
 
-    function uploadImage($path_img, $image) {
-        $target_dir = $path_img;
-        $target_file = $target_dir . basename($image["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $extensions_arr = array("jpg", "jpeg", "png", "gif");
-        $check = getimagesize($image["tmp_name"]);
-
-        if ($check !== false) {
-            if (in_array($imageFileType, $extensions_arr)) {
-                if ($image["size"] < 5000000) {
-                    if (move_uploaded_file($image["tmp_name"], $target_file)) {
-                        return true;
-                    } else {
-                        $errors["p_featured_photo"] = "Désolé, une erreur s'est produite lors du téléchargement de votre fichier.";
-                    }
-                } else {
-                    $errors["p_featured_photo"] = "Désolé, votre fichier est trop volumineux.";
-                }
-            } else {
-                $errors["p_featured_photo"] = "Désolé, seuls les fichiers JPG, JPEG, PNG et GIF sont autorisés.";
-            }
-        } else {
-            $errors["p_featured_photo"] = "Désolé, votre fichier n'est pas une image.";
-        }
-    }
-
-    function deleteImage(string $path, string $image) {
-        if (file_exists($path . $image)) {
-            unlink($path . $image);
+    function deleteImage(string $path_img, string $image) {
+        if (file_exists($path_img . $image)) {
+            unlink($path_img . $image);
             return true;
         }
         return false;
