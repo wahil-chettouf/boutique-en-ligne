@@ -230,8 +230,12 @@
             }
 
             // Valider le champ ecat_id
-            if (isset($data["ecat_id"])) {
-                $ecat_id = intval($data["ecat_id"]);
+            if (isset($data["ecat_id"]) && !empty(trim($data["ecat_id"]))) {
+                if($data["ecat_id"] == "homme") {
+                    $ecat_id = 1;
+                } else if($data["ecat_id"] == "femme") {
+                    $ecat_id = 2;
+                }
 
                 // mettre a jour le champ ecat_id dans la base de donnees
                 $product->updateCategoryId($ecat_id);
