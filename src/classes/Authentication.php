@@ -1,6 +1,6 @@
 <?php
+    require_once("Authentication.php");
     class Authentication {
-
         // Filtrer les données entrées par l'utilisateur
         public static function process_input($inp) {
             $inp = trim($inp);
@@ -40,6 +40,7 @@
 
         // UploadImage method
         public static function uploadImage($target_dir, $file) {
+            global $path;
             // Valider le champ p_featured_photo
             if ($file["error"] === UPLOAD_ERR_OK) {
                 // Valider le type de fichier (image)
@@ -50,10 +51,10 @@
                     $file["name"] = $timestamp . "_" . $file["name"];
 
                     // Déplacer le fichier vers un répertoire approprié
-                    $destination = $target_dir . "/" . $file["name"];
+                    $destination = "../../../dist/images/product/" . $target_dir . "/" . $file["name"];
                     //return $file;
                     if (move_uploaded_file($file["tmp_name"], $destination)) {
-                        $p_featured_photo = $destination;
+                        $p_featured_photo = $path . "/dist/images/product/". $target_dir . "/" . $file["name"];
                         return ["success" => true, "message" => "Image téléchargée avec succès", "p_featured_photo" => $p_featured_photo];
                     } else {
                         return ["success" => false, "message" => "Erreur lors de l'importation de l'image"];
@@ -65,4 +66,16 @@
                 return ["success" => false, "message" => "Erreur lors de l'importation de l'image"];
             }
         }
+
+        // Supprimer l'image du répertoire
+        public static function deleteImage(string $target_dir, string $image) {
+            if (file_exists($target_dir . $image)) {
+                global $path;
+                $path_img = $path . "/dist/images/product/" . $target_dir . "/";
+                unlink($path_img . $image);
+                return ["success" => true, "message" => "Image supprimée avec succès"];
+            }
+            return ["success" => false, "message" => "Image introuvable"];
+        }
+        
     }

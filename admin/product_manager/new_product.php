@@ -23,7 +23,7 @@
             </div>
 
             <div class="flex justify-center w-full">
-                <section class="flex flex-col space-y-6 w-full xl:w-1/3">
+                <section class="flex flex-col space-y-6 w-full xl:w-1/2">
                     <div class="">
                         <ul class="flex justify-center space-x-2">
                             <li class="">
@@ -39,6 +39,7 @@
                     </div>
 
                     <form id="newProductForm" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="_method" value="POST">
                         <div class="mb-4">
                             <label for="p_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du produit:</label>
                             <input type="text" id="p_name" name="p_name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">
