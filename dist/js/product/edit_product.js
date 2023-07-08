@@ -44,26 +44,35 @@ const fillForm = (product) => {
 const updateProduct = async () => {
     // Vide les erreurs
     cleanErrors();
-
+    
     const formData = new FormData(updateProductForm);
+    // Récupérer le fichier de l'image
+    const p_featured_photo_file = formData.get('p_featured_photo');
+
+    // Supprimez le champ de fichier de l'objet formData
+    formData.delete('p_featured_photo');
+
+    console.log(p_featured_photo_file);
     const dataForm = {
         p_name: formData.get('p_name'),
         p_current_price: formData.get('p_current_price'),
         p_stock: formData.get('p_stock'),
         p_description: formData.get('p_description'),
         p_short_description: formData.get('p_short_description'),
-        p_featured_photo: formData.get('p_featured_photo'),
+        p_featured_photo: p_featured_photo_file,
         p_feature: formData.get('p_feature'),
         ecat_id: formData.get('ecat_id'),
     }
 
     const requestOption = {
         method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dataForm)
+        body: formData,
     };
+
+    // Ajouter le champ d'image séparément au formData
+    if(p_featured_photo_file.name) {
+        formData.append('p_featured_photo', p_featured_photo_file);
+    }
     
     const response = await fetch(`../../src/api/product/product.php?p_id=${productId}`, requestOption);
 

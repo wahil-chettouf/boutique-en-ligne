@@ -25,6 +25,8 @@
     } 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        echo json_encode($_FILES);
+        exit();
         // Valider et récupérer les valeurs des champs du formulaire
     
         // Valider le champ p_name
@@ -129,15 +131,20 @@
         }
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "PUT") {
+    if ($_SERVER["REQUEST_METHOD"] === "PUT") {
+        
+        echo json_encode(["post" => $_POST, "file" => $_FILES]);
+        exit();
+
         // Récupérer le contenu de la requête PUT
         $put_data = file_get_contents("php://input");
 
-        // Récupérer le produit à mettre à jour
-        $product = new Products($_GET["p_id"]);
-
         // Décodez les données JSON en tableau associatif
         $data = json_decode($put_data, true);
+
+
+        // Récupérer le produit à mettre à jour
+        $product = new Products($_GET["p_id"]);
 
         // Vérifier si le décodage a réussi
         if ($data !== null) {
@@ -208,22 +215,32 @@
             }
 
             // Valider le champ p_featured_photo
-            if (isset($_FILES["p_featured_photo"]) && !empty($_FILES["p_featured_photo"]["name"])) {
+            if (isset($data["p_featured_photo"])) {
                 // Récupérer le nom du l'image courante
                 $old_image = $product->getFeaturedPhoto();
 
-                
-                if(uploadImage("../assets/images/products/", $data["ecat_id"], $_FILES["p_featured_photo"])) {
-                    // Ajouter le message de succès à la réponse
-                    $response["p_featured_photo"] = "L'image du produit a été mise à jour avec succès";
-                } else {
-                    $errors["p_featured_photo"] = "Impossible de mettre à jour l'image du produit";
+                // Chemin du dossier de destination des images
+                $target_dir = "../../../dist/images/product/" . $data["ecat_id"];   
 
-                    // Supprimer l'oncienne image du produit
-                    if(deleteImage($path_img, $old_image)) {
-                        // Ajouter le message de succès à la réponse
-                        $response["p_featured_photo"] = "L'image du produit a été mise à jour avec succès";
-                    }
+                // Upload de l'image
+                $imageResult = Authentication::uploadImage($target_dir ,$data["p_featured_photo"]);
+
+                // Vérifier si le fichier a été téléchargé sans erreur.
+                if($imageResult["success"] == true) {
+                    $p_featured_photo = $imageResult["p_featured_photo"];
+                    
+                    // mettre a jour le champ p_featured_photo dans la base de donnees
+                    $product->updateFeaturedPhoto($p_featured_photo);
+
+                    // Réponse JSON en cas de succès
+                    $response = array(
+                        "success" => "Le produit a été ajouté avec succès"
+                    );
+                } else {
+                    $errors["p_featured_photo"] = $imageResult["message"];
+                    $response = array(
+                        "errors" => $errors
+                    );
                 }
             } else {
                 $errors["p_featured_photo"] = "Veuillez sélectionner une image";

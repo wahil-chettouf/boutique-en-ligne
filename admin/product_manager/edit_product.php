@@ -35,6 +35,7 @@
             <div class="flex justify-center w-full">
                 <section class="flex flex-col space-y-6 w-full xl:w-1/3">
                     <form id="updateProductForm" method="POST" enctype="multipart/form-data">
+                        
                         <div class="mb-4">
                             <label for="p_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du produit:</label>
                             <input type="text" id="p_name" name="p_name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500">

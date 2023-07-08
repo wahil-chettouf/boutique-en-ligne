@@ -227,7 +227,7 @@
             $this->updateColumn('p_stock', $stock);
         }
 
-        public function updateImage($p_featured_photo) {
+        public function updateFeaturedPhoto($p_featured_photo) {
             $this->updateColumn('p_featured_photo', $p_featured_photo);
         }
 
