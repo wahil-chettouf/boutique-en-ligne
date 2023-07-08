@@ -5,7 +5,6 @@
     // if($_SERVER['REQUEST_METHOD'] === 'GET') 
     if(isset($_GET['p_id'])) {
         $product = Products::getProductById($_GET['p_id']);
-        $productImage = Products::getFirstProductImage($_GET['p_id'])->photo;
     } 
 ?>
 
@@ -27,7 +26,7 @@
                 <section id="" class="sm:basis-2/4">
                     <div class="py-2 text-center uppercase">
                         <div class="flex sm:justify-center">
-                            <img class="w-56" src="../dist/images/product/homme/<?php echo $productImage?>" alt="<?php echo $productImage?>">
+                            <img class="w-56" src="<?php echo $product->p_featured_photo?>" alt="<?php echo $product->p_name?>">
                         </div>
                     </div>
                 </section>
@@ -44,7 +43,7 @@
                             <span>EUR <?php echo $product->p_current_price?> € TVA incluse</span>
                         </div>
                         <div class="">
-                            <?php if($product->p_qty > 0) :?>
+                            <?php if($product->p_stock > 0) :?>
                                 <span>Produit disponible</span>
                             <?php else :?>
                                 <span>Produit indisponible</span>
@@ -60,7 +59,7 @@
                                         <button class="btn btn-primary bg-slate-400 w-6" id="btn-minus">-</button>
                                     </div>
                                     <div class="">
-                                        <input type="number" name="qty" id="qty" value="1" min="1" max="<?php echo $product->p_qty?>" class="border-none outline-none w-6 bg-red-100  text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                                        <input type="number" name="qty" id="qty" value="1" min="1" max="<?php echo $product->p_stock?>" class="border-none outline-none w-6 bg-red-100  text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
                                     </div>
                                     <div class="">
                                         <button class="btn btn-primary bg-slate-400 w-6" id="btn-plus">+</button>
@@ -80,8 +79,8 @@
                             </div>
                         </div>
                         <div class="">
-                            <span class="text-sm">Délai de Traitement:sera calculé lorsque l'article aura été sélectionné
-                                Temps de livraison:Envoi Express4-6 jours ouvrés
+                            <span class="text-sm">Délai de Traitement : sera calculé lorsque l'article aura été sélectionné
+                                Temps de livraison:Envoi Express 4-6 jours ouvrés
                             </span>
                         </div>
                     </div>
@@ -138,7 +137,6 @@
             </div>
         </div>
     </div>
-    <!-- <script src="../dist/js/product.js"></script> -->
     <script src="../dist/js/script.js"></script>
 </body>
 </html>

@@ -1,8 +1,7 @@
 <?php
-    require_once '../src/classes/Utilisateurs.php'; 
-    require_once '../src/classes/Products.php'; 
-
-    // if($_SERVER['REQUEST_METHOD'] === 'GET') 
+    require_once '../../src/classes/Utilisateurs.php'; 
+    require_once '../../src/classes/Products.php'; 
+    require_once 'C:\xampp\htdocs\boutique-en-ligne\src\inc\path.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,16 +10,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
-    <link rel="stylesheet" href="../dist/style.css">
+    <title>User manager</title>
+    <link rel="stylesheet" href="../../dist/style.css">
 </head>
 <body>
     <div class="app box-border">
-        <?php require_once '../components/header.php'; ?>
+        <?php require_once '../../components/header.php'; ?>
         
         <div class="container flex flex-col space-y-6 px-2 mx-auto my-9">
-            <div class="flex flex-col max-sm:space-y-3 justify-between w-full sm:flex-row sm:space-x-2 ">
-
+            <div class="">
+                <?php require_once "../inc/side_bar.php"?>
             </div>
         </div>
     </div>
