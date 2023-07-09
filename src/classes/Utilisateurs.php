@@ -154,6 +154,20 @@
             }
         }
 
+        // Vérifie si l'email existe dans la base de données sauf l'email de l'utilisateur connecté
+        public function is_user_exist_except_me($email) {
+            global $bdd;
+            $sql = "SELECT * FROM ". self::TB_NAME . " WHERE email = ? && id != ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email, $this->getId()]);
+
+            if($req->rowCount()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
         // --------------------- SETTERS METHODS ---------------------
         public function setFullName($full_name) {

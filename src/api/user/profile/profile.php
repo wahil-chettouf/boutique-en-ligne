@@ -30,16 +30,22 @@
             } else if($_POST["_method"] === "PUT_EMAIL") {
                 // Valider le champ email
                 if(isset($_POST["email"]) && !empty(trim($_POST["email"]))) {
+                    $email = Authentication::process_input($_POST["email"]);
                     // Vérifier si l'adresse email est valide
                     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $errors["email"] = "Adresse email invalide";
                     } else {
-                        $email = trim($_POST["email"]);
-                        // Mettre à jour l'adresse email de l'utilisateur
-                        if($user->setEmail($email)) {
-                            $messages["email"] = "Adresse email mise à jour avec succès";
+                        // Vérifier si l'adresse email existe déjà
+                        if($user->is_user_exist_except_me($email)) {
+                            $errors["email"] = "Adresse email déjà utilisée";
                         } else {
-                            $errors["email"] = "Erreur lors de la mise à jour de l'adresse email";
+                            // Mettre à jour l'adresse email de l'utilisateur
+                            $user->setEmail($email);
+                            $messages["email"] = "Adresse email mise à jour avec succès";
+                            
+                            // } else {
+                            //     $errors["email"] = "Erreur lors de la mise à jour de l'adresse email";
+                            // }
                         }
                     }
                 } else {
