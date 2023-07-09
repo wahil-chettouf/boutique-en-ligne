@@ -23,7 +23,7 @@
                 <h2 class="text-2xl font-bold mb-4">Mes address</h2>
                 <!-- Liste des adresses -->
                 <p class="hidden my-6 text-blue-950" id="messageZeroAddress">Vous n'avez pas encore d'adresse !</p>
-                <ul class="max-xl:flex max-xl:space-x-12" id="addresses">
+                <ul class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" id="addresses">
                     <!-- javascript code -->
                 </ul>
                 <a href="ajouter_address.php" class="text-blue-500 hover:text-blue-700">Ajouter une adresse</a>

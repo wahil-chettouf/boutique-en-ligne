@@ -17,7 +17,7 @@ const displayAddress = async () => {
     } else {
         addresses.forEach(address => {
             addressesBox.innerHTML += `
-                <li class="mb-4 xl:flex xl:space-x-2">
+                <li class="mb-4">
                     <h1 class="font-bold">Address N_${counter} : </h1>
                     <p>${address.address_line_1}</p>
                     <p>${address.address_line_2}</p>
@@ -27,9 +27,9 @@ const displayAddress = async () => {
                     <p>${address.country}</p>
     
                     <!-- supprimer button  -->
-                    <button class="text-red-500 hover:text-red-700" onclick="deleteAddress(${address.id})">Supprimer</button>
+                    <button class="text-sm text-red-500 hover:text-red-700" onclick="deleteAddress(${address.id})">Supprimer</button>
                     <!-- modifier button  -->
-                    <a href="modifier_address.php?id=${address.id}" class="text-blue-500 hover:text-blue-700 ">Modifier</a>
+                    <a href="modifier_address.php?id=${address.id}" class="text-sm text-blue-500 hover:text-blue-700 ">Modifier</a>
                 </li>
             `;
             counter++;
