@@ -20,7 +20,7 @@
                     // Mettre à jour le nom complet de l'utilisateur
                     $user->setFullName($full_name);
                     $messages["full_name"] = "Nom complet mis à jour avec succès";
-                    
+
                     // } else {
                     //     $errors["full_name"] = "Erreur lors de la mise à jour du nom complet";
                     // }
@@ -48,18 +48,20 @@
             } else if($_POST["_method"] === "PUT_PHONE") {
                 // Valider le champ phone
                 if(isset($_POST["phone"]) && !empty(trim($_POST["phone"]))) {
-                    
+                    $phone = Authentication::is_phone_valid($_POST["phone"]);
                     // Vérifier si le numéro de téléphone est valide
-                    if(!Authentication::is_phone_valid($phone)) {
+                    if(!$phone) {
                         $errors["phone"] = "Numéro de téléphone invalide";
                     } else {
                         $phone = trim($_POST["phone"]);
                         // Mettre à jour le numéro de téléphone de l'utilisateur
-                        if($user->setPhone($phone)) {
-                            $messages["phone"] = "Numéro de téléphone mis à jour avec succès";
-                        } else {
-                            $errors["phone"] = "Erreur lors de la mise à jour du numéro de téléphone";
-                        }
+                        $user->setPhone($phone);
+                        // Mettre à jour le numéro de téléphone de l'utilisateur
+                        $messages["phone"] = "Numéro de téléphone mis à jour avec succès";
+
+                        // } else {
+                        //     $errors["phone"] = "Erreur lors de la mise à jour du numéro de téléphone";
+                        // }
                     }
                 } else {
                     $errors["phone"] = "Veuillez renseigner ce champ";

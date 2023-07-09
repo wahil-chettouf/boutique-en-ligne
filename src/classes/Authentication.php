@@ -36,11 +36,9 @@
         // Vérifier si le numéro de téléphone est valide
         public static function is_phone_valid($phone) {
             $phone = preg_replace('/\D/', '', trim($phone));
-            if(strlen($phone) == 10) {
-                return true;
-            } else {
-                return false;
-            }
+            $is_numeric = is_numeric($phone);
+            
+            return strlen($phone) == 10 && $is_numeric;
         }
 
         // UploadImage method

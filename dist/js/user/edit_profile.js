@@ -12,20 +12,26 @@ const passwordForm = document.getElementById('passwordForm');
 
 fullNameBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-
+    const formData = new FormData(fullNameForm);
     // Mettre à jour le nom complet
-    await updateFullName();
+    await updateProfile(formData);
 });
 
-const updateFullName = async () => {
+phoneBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(phoneForm);
+    // Mettre à jour le nom complet
+    await updateProfile(formData);
+});
+
+const updateProfile = async (form) => {
     // Vide les messages d'erreur
     removeErrors();
     removeSuccess();
 
-    const formData = new FormData(fullNameForm);
     const requestOption = {
         method: 'POST',
-        body: formData
+        body: form
     };
 
     const response = await fetch('../../src/api/user/profile/profile.php', requestOption)
