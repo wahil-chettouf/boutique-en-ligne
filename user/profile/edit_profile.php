@@ -13,7 +13,7 @@
     <div class="app">
         <?php require_once '../../components/header.php'; ?>
         <!-- Contenu de la page -->
-        <div class="container mx-auto flex max-md:flex-col max-md:items-center">
+        <div class="container mx-auto flex max-md:flex-col max-md:items-center md:justify-between">
             <?php require_once '../inc/sidebar.php'; ?>
             <div class="max-md:w-full md:w-3/4 bg-white p-4">
                 <h2 class="text-2xl font-bold mb-4">Mes informations</h2>
@@ -22,7 +22,7 @@
 
                     <div class="">
                         <label for="full_name" class="block mb-2 w-1/4">Nom complet</label>
-                        <div class="flex items-center w-3/4">
+                        <div class="flex items-center max-xl:w-full w-3/4">
                             <input type="text" id="full_name" name="full_name" value="<?php echo $user->getFullName(); ?>" required class="border border-gray-300 px-4 py-2 rounded w-full">
                             <button type="button" id="fullNameBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Modifier</button>
                         </div>
@@ -35,7 +35,7 @@
 
                     <div class="mt-4">
                         <label for="email" class="block mb-2 w-1/4">Email</label>
-                        <div class="flex items-center w-3/4">
+                        <div class="flex items-center max-xl:w-full w-3/4">
                             <input type="email" id="email" name="email" value="<?php echo $user->getEmail(); ?>" required class="border border-gray-300 px-4 py-2 rounded w-full">
                             <button type="button" id="emailBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Modifier</button>
                         </div>
@@ -48,7 +48,7 @@
 
                     <div class="mt-5">
                         <label for="phone" class="block mb-2 w-1/4">Téléphone</label>
-                        <div class="flex items-center w-3/4">
+                        <div class="flex items-center max-xl:w-full w-3/4">
                             <input type="tel" id="phone" name="phone" value="<?php echo $user->getPhone(); ?>" required class="border border-gray-300 px-4 py-2 rounded w-full">
                             <button type="button" id="phoneBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Modifier</button>
                         </div>

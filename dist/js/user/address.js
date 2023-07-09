@@ -29,7 +29,7 @@ const displayAddress = async () => {
                     <!-- supprimer button  -->
                     <button class="text-sm text-red-500 hover:text-red-700" onclick="deleteAddress(${address.id})">Supprimer</button>
                     <!-- modifier button  -->
-                    <a href="modifier_address.php?id=${address.id}" class="text-sm text-blue-500 hover:text-blue-700 ">Modifier</a>
+                    <a href="edit_address.php?id=${address.id}" class="text-sm text-blue-500 hover:text-blue-700 ">Modifier</a>
                 </li>
             `;
             counter++;
