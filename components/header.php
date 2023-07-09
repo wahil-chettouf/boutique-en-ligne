@@ -39,7 +39,8 @@
                         <?php if($user->isClient()) :?>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/propos.php" class="max-md:block max-md:pl-3 p-1">A propos</a></li>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/contact.php" class="max-md:block max-md:pl-3 p-1">Contact</a></li>
-                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/public/panier.php" class="max-md:block max-md:pl-3 p-1">panier</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/user/panier/panier.php" class="max-md:block max-md:pl-3 p-1">panier</a></li>
+                            <li class="hover:text-stone-600"><a href="<?php echo $path?>/user/profile/profile.php" class="max-md:block max-md:pl-3 p-1">profile</a></li>
                         <?php else :?>
                             <li class="hover:text-stone-600"><a href="<?php echo $path?>/admin/product_manager/product_manager.php" class="max-md:block max-md:pl-3 p-1">Dashboard</a></li>
                         <?php endif; ?>

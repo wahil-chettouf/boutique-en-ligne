@@ -1,4 +1,6 @@
-<?php require_once '../src/classes/Utilisateurs.php'; ?>
+<?php 
+    require_once '../../src/classes/Utilisateurs.php'; 
+?>
 
 <!DOCTYPE html>
 <html lang="fr-FR">
@@ -7,11 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier</title>
-    <link rel="stylesheet" href="../dist/style.css">
+    <link rel="stylesheet" href="../../dist/style.css">
 </head>
 <body>
     <div class="app">
-        <?php require_once '../components/header.php'; ?>
+        <?php require_once '../../components/header.php'; ?>
         <div class="bg-gray-100 py-6">
     <div class="container mx-auto px-4">
         <h1 class="text-3xl font-semibold mb-6">Mon Panier</h1>

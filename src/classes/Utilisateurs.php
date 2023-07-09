@@ -22,11 +22,11 @@
             }
         }
 
-        public function add_user($full_name, $email, $password, $phone, $photo, $role) {
+        public function add_user($full_name, $email, $password, $phone, $role) {
             global $bdd;
-            $sql = "INSERT INTO ". self::TB_NAME ."(email, full_name, password, phone, photo, role, status) VALUES(?, ?, ?, ?, ?, ?, false)";
+            $sql = "INSERT INTO ". self::TB_NAME ."(full_name, email, password, phone, role, status) VALUES(?, ?, ?, ?, ?, false)";
             $req = $bdd->prepare($sql);
-            $req->execute([$email, $full_name, $password, $phone, $photo, $role]);
+            $req->execute([$full_name, $email, $password, $phone, $role]);
 
             if($req->rowCount()) {
                 return true;

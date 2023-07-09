@@ -37,11 +37,8 @@
                 <input type="password" name="confirm_pass" class="p-2 border-none outline-none" placeholder="Confirmer le mot de passe" value="">
                 <span class="text-red-600 text-sm" id="confirm_pass_err"></span>
 
-                <input type="text" name="phone" class="p-2 border-none outline-none" placeholder="Numéro de téléphone" value="">
+                <input type="number" name="phone" class="p-2 border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" placeholder="Numéro de téléphone" value="">
                 <span class="text-red-600 text-sm" id="phone_err"></span>
-
-                <input type="file" name="photo" placeholder="Photo" value="">
-                <span class="text-red-600 text-sm" id="photo_err"></span>
 
                 <div class="pt-2">
                     <input type="submit" name="submit" class="bg-green-700 w-full p-3 text-white hover:cursor-pointer" value="S'inscrire">
