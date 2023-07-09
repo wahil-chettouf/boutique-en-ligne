@@ -8,7 +8,8 @@ const getAddressInfo = async () => {
     });
 
     const data = await response.json();
-    if (data.status === 'success') {
+    console.log(data);
+    if (data.success) {
         //console.log(data.product);
         fillForm(data.address);
     } else {
@@ -23,7 +24,7 @@ const fillForm = (address) => {
     const address_line_1 = document.querySelector(`input[name="address_line_1"]`);
     const address_line_2 = document.querySelector(`input[name="address_line_2"]`);
     const city = document.querySelector(`input[name="city"]`);
-    const state = document.querySelector(`textarea[name="state"]`);
+    const state = document.querySelector(`input[name="state"]`);
     const zip_code = document.querySelector(`input[name="zip_code"]`);
     const country = document.querySelector(`input[name="country"]`);
 

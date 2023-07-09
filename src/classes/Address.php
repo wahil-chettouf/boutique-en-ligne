@@ -12,6 +12,14 @@
             $this->address_info = self::getAddressById($id);
         }
 
+        // --------------------- GETTERS METHODS ---------------------
+        public function getAllInfo() {
+            return $this->address_info;
+        }
+        public function getId() {
+            return $this->address_info->id;
+        }
+
         public static function getAddresses() {
             global $bdd, $user;
             $sql = "SELECT * FROM ". self::TB_NAME . " WHERE user_id = ?";
@@ -44,11 +52,11 @@
             }
         }
 
-        public static function updateAddress($id, $address_line_1, $address_line_2, $city, $state, $zip_code, $country) {
+        public function updateAddress($address_line_1, $address_line_2, $city, $state, $zip_code, $country) {
             global $bdd;
             $sql = "UPDATE ". self::TB_NAME . " SET address_line_1 = ?, address_line_2 = ?, city = ?, state = ?, zip_code = ?, country = ? WHERE id = ?";
             $req = $bdd->prepare($sql);
-            $req->execute([$address_line_1, $address_line_2, $city, $state, $zip_code, $country, $id]);
+            $req->execute([$address_line_1, $address_line_2, $city, $state, $zip_code, $country, $this->address_info->getId()]);
             if($req->rowCount()) {
                 return true;
             } else {

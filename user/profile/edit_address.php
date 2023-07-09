@@ -19,7 +19,7 @@
                 <h2 class="text-2xl font-bold mb-4">Modifier l'address</h2>
                 <!-- Formulaire d'ajout d'adresse -->
                 <form method="POST" id="updateAddressForm" class="mb-4">
-                    <input type="hidden" name="_method" value="POST_ADDRESS">
+                    <input type="hidden" name="_method" value="PUT_ADDRESS">
 
                     <div class="mb-4">
                         <label for="address_line_1" class="block mb-2">Adresse ligne 1</label>
