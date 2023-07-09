@@ -16,7 +16,7 @@ const displayError = (errors) => {
 };
 
 const displaySuccessMessage = (messages) => {
-    console.log(messages);
+    //console.log(messages);
     // Boucle sur les messages de succès
     for(const [key, value] of Object.entries(messages)) {
         const successSpan = document.getElementById(key + "_success");
@@ -53,9 +53,16 @@ const updateProfile = async (form) => {
     const response = await fetch('../../src/api/user/profile/profile.php', requestOption)
 
     const data = await response.json();
+
+    displayError(data.error);
+    displaySuccessMessage(data.message);
+
     if(data.success) {
-        displaySuccessMessage(data.message);
+        if(data.notification) { 
+            console.log(data.notification);
+            alert(data.notification);
+            window.location.href = "./profile.php";
+        }
     } else {
-        displayError(data.error);
     }
 };

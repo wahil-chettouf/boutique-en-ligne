@@ -25,7 +25,7 @@
                         <label for="password" class="block mb-2">Ancienne mot de passe</label>
                         <input type="password" id="old_password" name="old_password" required class="border border-gray-300 px-4 py-2 rounded w-3/4">
                         <span class="text-red-600 text-xs block mt-2 error" id="old_password_err"></span>
-                        <span id="pld_password_success" class="text-xs text-green-600 success"></span>
+                        <span id="old_password_success" class="text-xs text-green-600 success"></span>
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block mb-2">Nouveau mot de passe</label>

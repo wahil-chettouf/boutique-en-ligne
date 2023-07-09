@@ -9,6 +9,7 @@
 
     $errors = array();
     $messages = array();
+    $response = array();
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         if(isset($_POST["_method"])) {
@@ -79,6 +80,13 @@
                     // Vérifier si le mot de passe est correct
                     if(!Authentication::is_password_strong($old_password)) {
                         $errors["old_password"] = "Mot de passe incorrect";
+                    } else {
+                        // Vérifier si le mot de passe entrer est le même que celui de l'utilisateur
+                        if(!Authentication::verify_password($old_password, $user->getPassword())) {
+                            $errors["old_password"] = "Mot de passe incorrect";
+                        } else {
+                            $messages["old_password"] = "Ancien mot de passe correct";
+                        }
                     }
                 } else {
                     $errors["old_password"] = "Veuillez renseigner ce champ";
@@ -90,6 +98,8 @@
                     // Vérifier si le mot de passe est correct
                     if(!Authentication::is_password_strong($password)) {
                         $errors["password"] = "Mot de passe incorrect";
+                    } else {
+                        $messages["password"] = "Nouveau mot de passe correct";
                     }
                 } else {
                     $errors["password"] = "Veuillez renseigner ce champ";
@@ -101,6 +111,8 @@
                     // Vérifier si le mot de passe de confirmation egale le mot de passe
                     if($confirm_pass !== $password) {
                         $errors["confirm_pass"] = "Les mots de passe ne correspondent pas";
+                    } else {
+                        $messages["confirm_pass"] = "Confirmation mot de passe correct";
                     }
                 } else {
                     $errors["confirm_pass"] = "Veuillez renseigner ce champ";
@@ -108,15 +120,15 @@
 
                 // Vérifier si $errors ne contient aucune erreur de mot de passe
                 if(empty($errors["old_password"]) && empty($errors["password"]) && empty($errors["confirm_pass"])) {
-                    if(!Authentication::verify_password($old_password, $user->getPassword()) === false) {
-                        $errors["old_password"] = "Mot de passe incorrect";
+                    // Mettre à jour le mot de passe de l'utilisateur
+                    if($user->setPassword(Authentication::hash_password($password))) {
+                        $messages["password"] = "Mot de passe mis à jour avec succès";
+
+                        // Ajouter une notification
+                        $response["notification"] = "Mot de passe mis à jour avec succès";
+                        
                     } else {
-                        // Mettre à jour le mot de passe de l'utilisateur
-                        if($user->setPassword(Authentication::hash_password($password))) {
-                            $messages["password"] = "Mot de passe mis à jour avec succès";
-                        } else {
-                            $errors["password"] = "Erreur lors de la mise à jour du mot de passe";
-                        }
+                        $errors["password"] = "Erreur lors de la mise à jour du mot de passe";
                     }
                 }
             } else {
@@ -127,19 +139,15 @@
         }
         // Vérifier si $errors ne contient aucune erreur
         if(empty($errors)) {
-            $response = array(
-                "success" => true,
-                "message" => $messages
-            );
-            echo json_encode($response);
+            $response["success"] = true;
+            $response["message"] = $messages;
+            $response["error"] = $errors;
         } else {
-            $response = array(
-                "error" => $errors,
-                "message" => $messages,
-                "success" => false
-            );
-            echo json_encode($response);
+            $response["success"] = false;
+            $response["error"] = $errors;
+            $response["message"] = $messages;
         }
+        echo json_encode($response);
     } else {
         $response = array(
             "error" => "requête invalide -> " . $_SERVER["REQUEST_METHOD"] . " " . $_SERVER["REQUEST_URI"]
