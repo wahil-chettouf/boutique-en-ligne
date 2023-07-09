@@ -1,6 +1,6 @@
 const addressId = window.location.href.split('?')[1].split('=')[1];
 const updateAddressBtn = document.querySelector('#updateAddressBtn');
-const updateAddressForm = document.querySelector('#formUpdateAddress');
+const updateAddressForm = document.querySelector('#updateAddressForm');
 
 const getAddressInfo = async () => {
     const response = await fetch("../../src/api/user/address/address.php?id=" + addressId, {
@@ -8,7 +8,6 @@ const getAddressInfo = async () => {
     });
 
     const data = await response.json();
-    console.log(data);
     if (data.success) {
         //console.log(data.product);
         fillForm(data.address);
@@ -41,6 +40,7 @@ const fillForm = (address) => {
 const updateAddress = async () => {
     // Vide les erreurs
     cleanErrors();
+    removeSuccess();
 
     const formData = new FormData(updateAddressForm);
     const requestOption = {
@@ -48,28 +48,23 @@ const updateAddress = async () => {
         body: formData,
     };
 
-    const response = await fetch(`../../src/api/user/address/address.php?p_id=${productId}`, requestOption);
+    const response = await fetch(`../../src/api/user/address/address.php?id=${addressId}`, requestOption);
 
     const data = await response.json();
-    if (data.status === 'success') {
-        console.log(data);
-        //window.location.href = './product_manager.php';
-        displayError(data.errors);
+    //window.location.href = './product_manager.php';
+    displayError(data.errors);
 
-        // Afficher des messages de success
-        displaySuccessMessage(data.messages);
-        
-        // remplir les inputs avec les valeurs de l'objet
-        getProductInfo();
-        //fillForm(data.product);
+    // Afficher des messages de success
+    displaySuccessMessage(data.messages);
+    if (data.success) {
     } else {
-        alert(data.error);
+        console.log(data.errors);
     }
 };
 
 updateAddressBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    await updateProduct();
+    await updateAddress();
 });
 
 

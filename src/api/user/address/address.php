@@ -18,15 +18,75 @@
                 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                     $address_id = Authentication::process_input($_GET["id"]);
                 } else {
-                    $response["errors"] = 'Veuillez renseigner ce champ (get id)';
+                    $response["error_id_address"] = 'Veuillez renseigner ce champ (get id)';
                 }
+                // Valide le champ address_line_1
+                if(isset($_POST["address_line_1"]) && !empty(trim($_POST["address_line_1"]))) {
+                    $address_line_1 = Authentication::process_input($_POST["address_line_1"]);
+                    $messages["address_line_1"] = "Le champ address_line_1 est bien";
+                } else {
+                    $errors["address_line_1"] = "Veuillez renseigner ce champ";
+                }
+
+                // Valide le champ address_line_2
+                if(isset($_POST["address_line_2"]) && !empty(trim($_POST["address_line_2"]))) {
+                    $address_line_2 = Authentication::process_input($_POST["address_line_2"]);
+                    $messages["address_line_2"] = "Le champ address_line_2 est bien";
+                } else {
+                    $errors["address_line_2"] = "Veuillez renseigner ce champ";
+                }
+
+                // Valide le champ city
+                if(isset($_POST["city"]) && !empty(trim($_POST["city"]))) {
+                    $city = Authentication::process_input($_POST["city"]);
+                    $messages["city"] = "Le champ city est bien";
+                } else {
+                    $errors["city"] = "Veuillez renseigner ce champ";
+                }
+
+                // Valide le champ state
+                if(isset($_POST["state"]) && !empty(trim($_POST["state"]))) {
+                    $state = Authentication::process_input($_POST["state"]);
+                    $messages["state"] = "Le champ state est bien";
+                } else {
+                    $errors["state"] = "Veuillez renseigner ce champ";
+                }
+
+                // Valide le champ zip_code
+                if(isset($_POST["zip_code"]) && !empty(trim($_POST["zip_code"]))) {
+                    if(!preg_match("/^[0-9]{5}$/", $_POST["zip_code"])) {
+                        $errors["zip_code"] = "Le code postal doit contenir 5 chiffres";
+                    } else {
+                        $zip_code = Authentication::process_input($_POST["zip_code"]);
+                        $messages["zip_code"] = "Le champ zip_code est bien";
+                    }
+                } else {
+                    $errors["zip_code"] = "Veuillez renseigner ce champ";
+                }
+
+                // Valide le champ country
+                if(isset($_POST["country"]) && !empty(trim($_POST["country"]))) {
+                    $country = Authentication::process_input($_POST["country"]);
+                    $messages["country"] = "Le champ country est bien";
+                } else {
+                    $errors["country"] = "Veuillez renseigner ce champ";
+                }
+
+                if(empty($errors)) {
+                    $address = new Address($address_id);
+                    $address->updateAddress($address_line_1, $address_line_2, $city, $state, $zip_code, $country);
+
+                    $messages["address"] = "Adresse modifiée avec succès";
+                    $response["success"] = true;
+                }
+            } else if($_POST["_method"] === "POST_ADDRESS") {
                 // Valide le champ address_line_1
                 if(isset($_POST["address_line_1"]) && !empty(trim($_POST["address_line_1"]))) {
                     $address_line_1 = Authentication::process_input($_POST["address_line_1"]);
                 } else {
                     $errors["address_line_1"] = "Veuillez renseigner ce champ";
                 }
-
+                
                 // Valide le champ address_line_2
                 if(isset($_POST["address_line_2"]) && !empty(trim($_POST["address_line_2"]))) {
                     $address_line_2 = Authentication::process_input($_POST["address_line_2"]);
@@ -63,65 +123,17 @@
                 }
 
                 if(empty($errors)) {
-                    $address = new Address($address_id);
-                    $address->updateAddress($address_line_1, $address_line_2, $city, $state, $zip_code, $country);
+                    // Ajoute l'adresse
+                    Address::addAddress($address_line_1, $address_line_2, $city, $state, $zip_code, $country);
 
-                    $messages["address"] = "Adresse modifiée avec succès";
-                }
-            } else if($_POST["_method"] === "POST_ADDRESS") {
-                // Valide le champ address_line_1
-                if(isset($_POST["address_line_1"]) && !empty(trim($_POST["address_line_1"]))) {
-                    $address_line_1 = Authentication::process_input($_POST["address_line_1"]);
+                    $messages["address"] = "Adresse ajoutée avec succès";
+                    $response["notification"] = "Adresse ajoutée avec succès";
+                    $response["success"] = true;
                 } else {
-                    $errors["address_line_1"] = "Veuillez renseigner ce champ";
+                    $response["success"] = false;
                 }
             } else {
                 $errors["request"] = "Méthode de requête non autorisée 1";
-            }
-            // Valide le champ address_line_2
-            if(isset($_POST["address_line_2"]) && !empty(trim($_POST["address_line_2"]))) {
-                $address_line_2 = Authentication::process_input($_POST["address_line_2"]);
-            } else {
-                $errors["address_line_2"] = "Veuillez renseigner ce champ";
-            }
-
-            // Valide le champ city
-            if(isset($_POST["city"]) && !empty(trim($_POST["city"]))) {
-                $city = Authentication::process_input($_POST["city"]);
-            } else {
-                $errors["city"] = "Veuillez renseigner ce champ";
-            }
-
-            // Valide le champ state
-            if(isset($_POST["state"]) && !empty(trim($_POST["state"]))) {
-                $state = Authentication::process_input($_POST["state"]);
-            } else {
-                $errors["state"] = "Veuillez renseigner ce champ";
-            }
-
-            // Valide le champ zip_code
-            if(isset($_POST["zip_code"]) && !empty(trim($_POST["zip_code"]))) {
-                $zip_code = Authentication::process_input($_POST["zip_code"]);
-            } else {
-                $errors["zip_code"] = "Veuillez renseigner ce champ";
-            }
-
-            // Valide le champ country
-            if(isset($_POST["country"]) && !empty(trim($_POST["country"]))) {
-                $country = Authentication::process_input($_POST["country"]);
-            } else {
-                $errors["country"] = "Veuillez renseigner ce champ";
-            }
-
-            if(empty($errors)) {
-                // Ajoute l'adresse
-                Address::addAddress($address_line_1, $address_line_2, $city, $state, $zip_code, $country);
-
-                $messages["address"] = "Adresse ajoutée avec succès";
-                $response["notification"] = "Adresse ajoutée avec succès";
-                $response["success"] = true;
-            } else {
-                $response["success"] = false;
             }
         } else {
             $errors["request"] = "Méthode de requête non autorisée 2";

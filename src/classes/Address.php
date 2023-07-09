@@ -56,7 +56,7 @@
             global $bdd;
             $sql = "UPDATE ". self::TB_NAME . " SET address_line_1 = ?, address_line_2 = ?, city = ?, state = ?, zip_code = ?, country = ? WHERE id = ?";
             $req = $bdd->prepare($sql);
-            $req->execute([$address_line_1, $address_line_2, $city, $state, $zip_code, $country, $this->address_info->getId()]);
+            $req->execute([$address_line_1, $address_line_2, $city, $state, $zip_code, $country, $this->getId()]);
             if($req->rowCount()) {
                 return true;
             } else {
