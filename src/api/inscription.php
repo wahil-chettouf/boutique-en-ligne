@@ -45,7 +45,7 @@
         // Vérification de la confirmation du mot de passe
         if(isset($_POST["confirm_pass"]) && !empty(trim($_POST["confirm_pass"]))) {
             $confirm_pass = Authentication::process_input($_POST["confirm_pass"]);
-            if($confirm_pass !== $password) {
+            if($confirm_pass !== Authentication::process_input($_POST["password"])) {
                 $confirm_pass_err = "Les mots de passe ne correspondent pas";
             }
         } else {

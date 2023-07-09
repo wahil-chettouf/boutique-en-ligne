@@ -37,16 +37,13 @@
         }
 
         public function connect($email, $password) {
-            global $bdd;
-            $sql = "SELECT * FROM ". self::TB_NAME ." WHERE email = ? AND password = ?";
-            $req = $bdd->prepare($sql);
-            $req->execute([$email, $password]);
-
-            if($req->rowCount()) {
-                $user = $req->fetch(PDO::FETCH_OBJ);
-                $_SESSION["id"] = $user->id;
-                $this->user_info = $user;
+            // Récupérer le mote de passe de l'utilisateur dans la base de données et le comparer avec le mot de passe entré par l'utilisateur
+            $passwordHashed =  self::getPasswordByEmail($email);
+            // Vérifier si le mot de passe entré par l'utilisateur correspond au mot de passe dans la base de données
+            if(password_verify($password, $passwordHashed)) {
                 $this->is_connected = true;
+                $this->user_info = self::getUserByEmail($email);
+                $_SESSION["id"] = $this->user_info->id;
                 return true;
             } else {
                 return false;
@@ -140,6 +137,19 @@
             }
         }
 
+        // Méthod pour récupérer les informations d'un utilisateur par son email
+        protected static function getUserByEmail($email) {
+            global $bdd;
+            $sql = "SELECT * FROM ". self::TB_NAME . " WHERE email = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email]);
+
+            if($req->rowCount()) {
+                return $req->fetchObject();
+            } else {
+                return false;
+            }
+        }
         // Vérifie si l'email existe dans la base de données
         public static function is_user_exist($email) {
             global $bdd;
@@ -149,6 +159,21 @@
 
             if($req->rowCount()) {
                 return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Méthod pour récupérer le mote de passe d'un utilisateur par son email
+        public static function getPasswordByEmail($email) {
+            global $bdd;
+            $sql = "SELECT password FROM ". self::TB_NAME . " WHERE email = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email]);
+
+            if($req->rowCount()) {
+                $user = $req->fetchObject();
+                return $user->password;
             } else {
                 return false;
             }
