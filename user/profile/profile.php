@@ -26,7 +26,7 @@
                 </div>
                 <div class="">
                     <!-- Bouton "Modifier" -->
-                    <a href="edit_profile.php" class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <a href="./edit_profile.php" class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h2.586a1 1 0 01.707.293l8 8a1 1 0 010 1.414l-2 2a1 1 0 01-1.414 0l-8-8A1 1 0 013 7.586V10H2V4a1 1 0 011-1zm5 0h4v1H8V5zM6.414 11L11 6.414l4.586 4.586L16 12.414l-2-2L8 14l-2-2 1.414-1.414z" clip-rule="evenodd" />
                     </svg>
@@ -73,6 +73,6 @@
             </div>
         </div>
     </div>
-    <script src="./dist/js/script.js"></script>
+    <script src="../../dist/js/script.js"></script>
 </body>
 </html>

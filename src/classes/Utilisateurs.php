@@ -18,6 +18,7 @@
                     $this->is_connected = true;
                 } else {
                     $this->is_connected = false;
+                    $this->disconnect();
                 }
             }
         }
@@ -147,6 +148,92 @@
             $req->execute([$email]);
 
             if($req->rowCount()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        // --------------------- SETTERS METHODS ---------------------
+        public function setFullName($full_name) {
+            global $bdd;
+            $sql = "UPDATE ". self::TB_NAME . " SET full_name = ? WHERE id = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$full_name, $this->getId()]);
+
+            if(!$req->rowCount()) {
+                //$this->user_info->full_name = $full_name;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function setEmail($email) {
+            global $bdd;
+            $sql = "UPDATE ". self::TB_NAME . " SET email = ? WHERE id = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$email, $this->getId()]);
+
+            if($req->rowCount()) {
+                //$this->user_info->email = $email;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function setPhone($phone) {
+            global $bdd;
+            $sql = "UPDATE ". self::TB_NAME . " SET phone = ? WHERE id = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$phone, $this->getId()]);
+
+            if($req->rowCount()) {
+                //$this->user_info->phone = $phone;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function setPassword($password) {
+            global $bdd;
+            $sql = "UPDATE ". self::TB_NAME . " SET password = ? WHERE id = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$password, $this->getId()]);
+
+            if($req->rowCount()) {
+                //$this->user_info->password = $password;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function setPhoto($photo) {
+            global $bdd;
+            $sql = "UPDATE ". self::TB_NAME . " SET photo = ? WHERE id = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$photo, $this->getId()]);
+
+            if($req->rowCount()) {
+                //$this->user_info->photo = $photo;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function setRole($role) {
+            global $bdd;
+            $sql = "UPDATE ". self::TB_NAME . " SET role = ? WHERE id = ?";
+            $req = $bdd->prepare($sql);
+            $req->execute([$role, $this->getId()]);
+
+            if($req->rowCount()) {
+                //$this->user_info->role = $role;
                 return true;
             } else {
                 return false;

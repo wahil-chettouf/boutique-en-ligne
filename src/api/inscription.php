@@ -34,7 +34,7 @@
         // Vérification du mot de passe
         if(isset($_POST["password"]) && !empty(trim($_POST["password"]))) {
             if(Authentication::is_password_strong(Authentication::process_input($_POST["password"]))) {
-                $password = Authentication::process_input($_POST["password"]);
+                $password = Authentication::hash_password($_POST["password"]);
             } else {
                 $password_err = "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial";
             }
