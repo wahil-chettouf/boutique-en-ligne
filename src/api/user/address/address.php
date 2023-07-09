@@ -76,4 +76,40 @@
         $response["errors"] = $errors;
         $response["messages"] = $messages;
         echo json_encode($response);
+    } else if($_SERVER["REQUEST_METHOD"] === "DELETE") {
+        if(isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+            $id = Authentication::process_input($_GET["id"]);
+            Address::deleteAddress($id);
+            $messages["address"] = "Adresse supprimée avec succès";
+            $response["notification"] = "Adresse supprimée avec succès";
+            $response["success"] = true;
+        } else {
+            $response["success"] = false;
+            $errors["request"] = "Méthode de requête non autorisée 3";
+        }
+        echo json_encode([
+            "errors" => $errors,
+            "messages" => $messages,
+            "response" => $response
+        ]);
+    } else if($_SERVER["REQUEST_METHOD"] === "GET") {
+        if(isset($_GET["id"])) {
+            $address = new Address(Authentication::process_input($_GET["id"]));
+            echo json_encode(["address" => $address]);
+        } else {
+            $address = Address::getAddresses();
+            echo json_encode(["addresses" => $address]);
+        }
+    } else if($_SERVER["REQUEST_METHOD"] === "PUT") {
+        if(isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+            $id = Authentication::process_input($_GET["id"]);
+            $address = Address::getAddress($id);
+            echo json_encode($address);
+        } else {
+            $response["success"] = false;
+            $errors["request"] = "Méthode de requête non autorisée 5";
+        }
+    } else {
+        $response["success"] = false;
+        $errors["request"] = "Méthode de requête non autorisée 6";
     }

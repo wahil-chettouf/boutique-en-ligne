@@ -1,6 +1,7 @@
 <?php
     require_once '../../src/classes/Utilisateurs.php'; 
     require_once '../../src/classes/Address.php'; 
+    $address = Address::getAddresses();
 ?>
 
 <!DOCTYPE html>
@@ -16,34 +17,20 @@
     <div class="app">
         <?php require_once '../../components/header.php'; ?>
         <!-- Contenu de la page -->
-        <div class="container mx-auto flex max-md:flex-col max-md:items-center">
+        <div class="container mx-auto md:flex md:justify-between">
             <?php require_once '../inc/sidebar.php'; ?>
-            <div class="max-md:w-full md:w-3/4 bg-white p-4">
+            <div id="" class="max-md:w-full md:w-3/4 bg-white p-4">
                 <h2 class="text-2xl font-bold mb-4">Mes address</h2>
                 <!-- Liste des adresses -->
-                <?php if(Address::getAddresses() == null): ?>
-                    <p class="text-xl">Vous n'avez pas encore d'adresse</p>
-                <?php else :?>
-                    <ul>
-                    <?php foreach (Address::getAddresses() as $address) { ?>
-                        <li class="mb-4">
-                        <h3 class="text-xl font-bold"><?php echo $address['address_id']; ?></h3>
-                        <p><?php echo $address['address_line_1']; ?></p>
-                        <p><?php echo $address['address_line_2']; ?></p>
-                        <p><?php echo $address['city']; ?></p>
-                        <p><?php echo $address['state']; ?></p>
-                        <p><?php echo $address['zip_code']; ?></p>
-                        <p><?php echo $address['country']; ?></p>
-                        <a href="modifier_address.php?id=<?php echo $address['address_id']; ?>" class="text-blue-500 hover:text-blue-700">Modifier</a>
-                        </li>
-                    <?php } ?>
-                    </ul>
-                <?php endif; ?>
+                <p class="hidden my-6 text-blue-950" id="messageZeroAddress">Vous n'avez pas encore d'adresse !</p>
+                <ul class="max-xl:flex max-xl:space-x-12" id="addresses">
+                    <!-- javascript code -->
+                </ul>
                 <a href="ajouter_address.php" class="text-blue-500 hover:text-blue-700">Ajouter une adresse</a>
             </div>
         </div>
     </div>
     <script src="../../dist/js/script.js"></script>
-    <script src="../../dist/js/user/edit_profile.js"></script>
+    <script src="../../dist/js/user/address.js"></script>
 </body>
 </html>
