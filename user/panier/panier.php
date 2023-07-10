@@ -1,5 +1,11 @@
 <?php 
     require_once '../../src/classes/Utilisateurs.php'; 
+    require_once '../../src/inc/path.php'; 
+
+    if($user->isNotConnected() || !$user->isClient()) {
+        $user->redirect($path . "/");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +66,6 @@
 
     </div>
 
-    <script src="../dist/js/script.js"></script>
+    <script src="../../dist/js/script.js"></script>
 </body>
 </html>

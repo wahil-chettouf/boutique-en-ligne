@@ -4,7 +4,7 @@
     require_once '../../src/classes/Address.php'; 
     $address = Address::getAddresses();
 
-    if($user->isNotConnected()) {
+    if($user->isNotConnected() || !$user->isClient()) {
         $user->redirect($path . "/public/connexion.php");
         exit();
     }

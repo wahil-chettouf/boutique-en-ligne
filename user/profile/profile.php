@@ -1,10 +1,12 @@
 <?php
     require_once '../../src/classes/Utilisateurs.php'; 
     require_once '../../src/inc/path.php'; 
+    require_once '../../src/classes/Address.php'; 
     if($user->isNotConnected()) {
         $user->redirect($path . "/public/connexion.php");
         exit();
     }
+    $address = Address::getAddresses();
 ?>
 
 <!DOCTYPE html>
@@ -25,11 +27,10 @@
                 <!-- Colonne de gauche -->
                 <div class="bg-white p-8 shadow">
                     <h2 class="text-2xl font-bold mb-4">Mon Profil</h2>
-                    <div class="flex flex-col space-y-2 mb-5">
+                    <div class="flex flex-col space-y-2 mb-14">
                         <p><strong>Nom :</strong> <?php echo $user->getFullName()?></p>
                         <p><strong>Email :</strong> <?php echo $user->getEmail()?></p>
                         <p><strong>Téléphone :</strong> <?php echo $user->getPhone()?></p>
-                        <p><strong>Adresse :</strong> 123 Rue de l'Exemple, Ville, Pays</p>
                     </div>
                     <div class="">
                         <!-- Bouton "Modifier" -->
@@ -49,7 +50,7 @@
                         <?php if (0 === 0): ?>
                         <!-- Message lorsque l'utilisateur n'a pas de commande -->
                         <p class="">Vous n'avez pas encore passé de commande.</p>
-                        <div class=" h-32"></div>
+                        <div class=" h-28"></div>
                         <?php else: ?>
                         <div class="my-3">
                             <ul class="md:flex md:space-x-6">
@@ -77,15 +78,22 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Colonne de gauche -->
                 <div class="bg-white p-8 shadow">
                     <h2 class="text-2xl font-bold mb-4">Mos address</h2>
-                    <div class="flex flex-col space-y-2 mb-5">
-                        <p><strong>Nom :</strong> <?php echo $user->getFullName()?></p>
-                        <p><strong>Email :</strong> <?php echo $user->getEmail()?></p>
-                        <p><strong>Téléphone :</strong> <?php echo $user->getPhone()?></p>
-                        <p><strong>Adresse :</strong> 123 Rue de l'Exemple, Ville, Pays</p>
-                    </div>
+                    <?php if($address) :?>
+                        <div class="flex flex-col space-y-2 mb-5">
+                            <p><strong>Adresse :</strong> <?php echo $address[0]->address_line_1?></p>
+                            <p><strong>Address_2 :</strong> <?php echo $address[0]->address_line_2?></p>
+                            <p><strong>city :</strong> <?php echo $address[0]->city?></p>
+                            <p><strong>state :</strong> <?php echo $address[0]->state?></p>
+                            <p><strong>zip_code :</strong> <?php echo $address[0]->zip_code?></p>
+                            <p><strong>country :</strong> <?php echo $address[0]->country?></p>
+                        </div>
+                    <?php else :?>
+                        <p class=" mb-12">Vous n'avez pas encore ajouter unse address.</p>
+                    <?php endif ?>
                     <div class="">
                         <!-- Bouton "Modifier" -->
                         <a href="./address.php" class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -99,11 +107,11 @@
 
                 <!-- Colonne de droite -->
                 <div class="bg-white p-8 shadow">
-                    <h2 class="text-2xl font-bold mb-4">Mes Commandes</h2>
+                    <h2 class="text-2xl font-bold mb-4">Mes Cartes</h2>
                     <div class="h-3/4 flex flex-col justify-between">
-                        <?php if (0 === 0): ?>
+                        <?php if (2 === 0): ?>
                         <!-- Message lorsque l'utilisateur n'a pas de commande -->
-                        <p class="">Vous n'avez pas encore passé de commande.</p>
+                        <p class="">Vous n'avez pas de carte enregistrer</p>
                         <div class=" h-32"></div>
                         <?php else: ?>
                         <div class="my-3">
@@ -111,9 +119,9 @@
                             <!-- Affichage des commandes (maximum 2) -->
                             <?php for ($i = 0; $i < 2; $i++): ?>
                                 <li class="">
-                                    <h3 class="text-xl font-bold mb-2">Commande #001</h3>
+                                    <h3 class="text-xl font-bold mb-2">Carte #001</h3>
                                     <p>Date : 2023-05-23</p>
-                                    <p>Statut : En cours de livraison</p>
+                                    <p>Statut : Valider</p>
                                 </li>
                                 <!-- ... Autres commandes ... -->
                             <?php endfor; ?>

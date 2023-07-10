@@ -5,7 +5,7 @@
     require_once '../../src/inc/path.php'; 
 
     if($user->isNotConnected() && $user->isClient()) {
-        $user->redirect($path . "/public/connexion.php");
+        $user->redirect($path . "/");
     }
 ?>
 
