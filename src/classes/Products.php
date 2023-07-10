@@ -3,7 +3,6 @@
     class Products {
         const TBL_NAME = "tbl_product";
         const TBL_NAME_IMAGES = "tbl_product_photo";
-        private $ecat_id;
 
         private $product_info;
 
@@ -106,72 +105,6 @@
         public function getUpdatedAt() {
             return $this->product_info->p_updated_at;
         }
-        
-        
-        
-        // ********************* Change to static methods  ********************* //
-        // public function getFeaturedProducts() {
-        //     global $bdd;
-        //     $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE p_is_featured = 1";
-        //     $stmt = $bdd->prepare($sql);
-        //     $stmt->execute();
-        //     $this->product_info = $stmt->fetchAll();
-        //     return $this->product_info;
-        // }
-
-        // public function getLatestProduct() {
-        //     global $bdd;
-        //     $sql = "SELECT * FROM " . self::TBL_NAME . " ORDER BY id DESC LIMIT 6";
-        //     $stmt = $bdd->prepare($sql);
-        //     $stmt->execute();
-        //     $this->product_info = $stmt->fetchAll();
-        //     return $this->product_info;
-        // }
-
-        // public function getProductsByCategoryId($ecat_id) {
-        //     global $bdd;
-        //     $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE ecat_id = ?";
-        //     $stmt = $bdd->prepare($sql);
-        //     $stmt->execute([$ecat_id]);
-        //     $this->product_info = $stmt->fetchAll();
-        //     return $this->product_info;
-        // }
-
-        // public function getProductsBySubCategoryId($scat_id) {
-        //     global $bdd;
-        //     $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE scat_id = ?";
-        //     $stmt = $bdd->prepare($sql);
-        //     $stmt->execute([$scat_id]);
-        //     $this->product_info = $stmt->fetchAll();
-        //     return $this->product_info;
-        // }
-
-        // public function getProductsBySubSubCategoryId($sscat_id) {
-        //     global $bdd;
-        //     $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE sscat_id = ?";
-        //     $stmt = $bdd->prepare($sql);
-        //     $stmt->execute([$sscat_id]);
-        //     $this->product_info = $stmt->fetchAll();
-        //     return $this->product_info;
-        // }
-
-        // public static function getFirstProductImage($product_id) {
-        //     // get toutes les images qui sont dans la table p_images qui sont lies avec l'id de product
-        //     global $bdd;
-        //     $sql = "SELECT photo FROM " . self::TBL_NAME_IMAGES . " WHERE p_id = ?";
-        //     $smtp = $bdd->prepare($sql);
-        //     $smtp->execute([$product_id]);
-        //     return $smtp->fetchObject();
-        // }
-
-        // public static function getProductsBySearch($search) {
-        //     global $bdd;
-        //     $sql = "SELECT * FROM " . self::TBL_NAME . " WHERE p_name LIKE '%$search%' OR p_short_description LIKE '%$search%' OR p_description LIKE '%$search%'";
-        //     $stmt = $bdd->prepare($sql);
-        //     $stmt->execute();
-        //     return $stmt->fetchAll(PDO::FETCH_OBJ);
-        // }
-
 
         public static function getProductsBySearchAndCategory($search, $ecat_id) {
             global $bdd;

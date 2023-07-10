@@ -14,6 +14,11 @@
             return password_verify($password, $hash);
         }
 
+        // Hacher le mot de passe
+        public static function hash_password($password) {
+            return password_hash($password, PASSWORD_DEFAULT);
+        }
+
         // Verifier si le mote de passe contient au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial
         public static function is_password_strong($password) {
             $uppercase = preg_match('@[A-Z]@', $password);
@@ -30,12 +35,10 @@
 
         // Vérifier si le numéro de téléphone est valide
         public static function is_phone_valid($phone) {
-            $phone = preg_replace('/\D/', '', $phone);
-            if(strlen($phone) == 10) {
-                return true;
-            } else {
-                return false;
-            }
+            $phone = preg_replace('/\D/', '', trim($phone));
+            $is_numeric = is_numeric($phone);
+            
+            return strlen($phone) == 10 && $is_numeric;
         }
 
         // UploadImage method
@@ -78,4 +81,10 @@
             return ["success" => false, "message" => "Image introuvable"];
         }
         
+
+        // Rédirection vers la page de connexion si l'utilisateur n'est pas connecté
+        public static function redirect($url) {
+            header("Location: $url");
+            exit();
+        }
     }

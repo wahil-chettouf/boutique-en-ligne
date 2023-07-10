@@ -9,6 +9,12 @@
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST["email"]) && !empty(trim($_POST["email"]))) {
             if(filter_var(Authentication::process_input($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
+                // Vérification si l'utilisateur existe déjà
+                if(Utilisateurs::is_user_exist(Authentication::process_input($_POST["email"]))) {
+                    $email = Authentication::process_input($_POST["email"]);
+                } else {
+                    $email_err = "Cette email n'existe pas";
+                }
                 $email = Authentication::process_input($_POST["email"]);
             } else {
                 $email_err = "Veuillez entrer une adresse email valide";

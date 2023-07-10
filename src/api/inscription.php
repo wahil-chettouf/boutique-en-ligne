@@ -3,8 +3,8 @@
     require_once("../classes/Authentication.php");
     header("Content-Type: application/json; charset=UTF-8");
 
-    $full_name_err = $email_err = $password_err = $confirm_pass_err = $phone_err = $photo_err = "";
-    $full_name = $email = $password = $confirm_pass = $phone = $photo = "";
+    $full_name_err = $email_err = $password_err = $confirm_pass_err = $phone_err = "";
+    $full_name = $email = $password = $confirm_pass = $phone = "";
 
     // Vérifier si on recois une requete POST
     if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,7 +34,7 @@
         // Vérification du mot de passe
         if(isset($_POST["password"]) && !empty(trim($_POST["password"]))) {
             if(Authentication::is_password_strong(Authentication::process_input($_POST["password"]))) {
-                $password = Authentication::process_input($_POST["password"]);
+                $password = Authentication::hash_password($_POST["password"]);
             } else {
                 $password_err = "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial";
             }
@@ -45,7 +45,7 @@
         // Vérification de la confirmation du mot de passe
         if(isset($_POST["confirm_pass"]) && !empty(trim($_POST["confirm_pass"]))) {
             $confirm_pass = Authentication::process_input($_POST["confirm_pass"]);
-            if($confirm_pass !== $password) {
+            if($confirm_pass !== Authentication::process_input($_POST["password"])) {
                 $confirm_pass_err = "Les mots de passe ne correspondent pas";
             }
         } else {
@@ -62,18 +62,11 @@
         } else {
             $phone_err = "Veuillez entrer votre numéro de téléphone";
         }
-
-        // Vérification de la photo
-        if(isset($_FILES["photo"]) && !empty($_FILES["photo"]["name"])) {
-            $photo = time()."_".$_FILES["photo"]["size"]."_".$_FILES["photo"]["name"];
-        } else {
-            $photo_err = "Veuillez choisir une photo";
-        }
-
+        
         // Vérification des erreurs de saisie
-        if(empty($full_name_err) && empty($email_err) && empty($password_err) && empty($confirm_pass_err) && empty($phone_err) && empty($photo_err)) {
+        if(empty($full_name_err) && empty($email_err) && empty($password_err) && empty($confirm_pass_err) && empty($phone_err)) {
             // Vérification si l'utilisateur a été ajouté
-            if($user->add_user($full_name, $email, $password, $phone, $photo, "client")) {
+            if($user->add_user($full_name, $email, $password, $phone, "client")) {
                 // Déplacer la photo dans le dossier images
                 echo json_encode(array("success" => "L'utilisateur a été ajouté avec succès"));
                 
@@ -89,7 +82,6 @@
                 "password_err" => $password_err,
                 "confirm_pass_err" => $confirm_pass_err,
                 "phone_err" => $phone_err,
-                "photo_err" => $photo_err,
             );
             
             echo json_encode($response);

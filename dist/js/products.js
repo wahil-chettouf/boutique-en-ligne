@@ -2,7 +2,7 @@ const productsBox = document.querySelector('#products');
 
 // Get the products from the database
 const getProducts = async () => {
-    const res = await fetch("../src/api/product/product.php");
+    const res = await fetch("./src/api/product/product.php");
     const data = await res.json()
     return data;
 };
@@ -15,7 +15,7 @@ const displayProducts = async () => {
     const article = document.createElement('article');
     article.classList.add('flex', 'flex-col', 'max-sm:basis-1', 'space-y-2', 'bg-slate-100', "justify-between");
         article.innerHTML = `
-            <a href="../public/product.php?p_id=${product.p_id}">
+            <a href="./public/product.php?p_id=${product.p_id}">
                 <div class="flex justify-center h-56">
                     <img class="h-full" src="${product.p_featured_photo}" alt="${product.p_name}">
                 </div>
