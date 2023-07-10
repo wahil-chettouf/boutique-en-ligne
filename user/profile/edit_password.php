@@ -1,5 +1,11 @@
-<?php require_once '../../src/classes/Utilisateurs.php'; ?>
-
+<?php
+    require_once '../../src/classes/Utilisateurs.php'; 
+    require_once '../../src/inc/path.php'; 
+    if($user->isNotConnected()) {
+        $user->redirect($path . "/public/connexion.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>

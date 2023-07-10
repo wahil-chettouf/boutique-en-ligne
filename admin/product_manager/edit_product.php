@@ -2,6 +2,11 @@
     require_once '../../src/classes/Utilisateurs.php'; 
     require_once '../../src/classes/Products.php'; 
     require_once 'C:\xampp\htdocs\boutique-en-ligne\src\inc\path.php';
+    require_once '../../src/inc/path.php'; 
+
+    if($user->isNotConnected() && $user->isClient()) {
+        $user->redirect($path . "/public/connexion.php");
+    }
 
     // on recupere le produit depuis la base de donnees en utilisant l'id passe en parametre
     if(isset($_GET["p_id"]) && !empty(trim($_GET["p_id"]))){

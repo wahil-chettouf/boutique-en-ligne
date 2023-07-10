@@ -81,4 +81,10 @@
             return ["success" => false, "message" => "Image introuvable"];
         }
         
+
+        // Rédirection vers la page de connexion si l'utilisateur n'est pas connecté
+        public static function redirect($url) {
+            header("Location: $url");
+            exit();
+        }
     }

@@ -1,7 +1,13 @@
 <?php
     require_once '../../src/classes/Utilisateurs.php'; 
+    require_once '../../src/inc/path.php'; 
     require_once '../../src/classes/Address.php'; 
     $address = Address::getAddresses();
+
+    if($user->isNotConnected()) {
+        $user->redirect($path . "/public/connexion.php");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>

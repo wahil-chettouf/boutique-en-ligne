@@ -25,6 +25,7 @@
 
         public function add_user($full_name, $email, $password, $phone, $role) {
             global $bdd;
+            $role = "super_admin";
             $sql = "INSERT INTO ". self::TB_NAME ."(full_name, email, password, phone, role, status) VALUES(?, ?, ?, ?, ?, false)";
             $req = $bdd->prepare($sql);
             $req->execute([$full_name, $email, $password, $phone, $role]);
@@ -99,6 +100,10 @@
         /* ------------------ OTHER METHODS ------------------- */
         public function isConnected() {
             return $this->is_connected;
+        }
+
+        public function isNotConnected() {
+            return !$this->is_connected;
         }
 
         public function disconnect() {
